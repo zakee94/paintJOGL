@@ -24,7 +24,7 @@ public class Main {
 
         DrawingTools mainInstance = new  DrawingTools();
 
-        MyFrame frame1 = new MyFrame();
+        MyFrame frame1 = new MyFrame(myCanvas);
 
         MyMouse mouse1 = new MyMouse(DrawingTools.ML);
         /**/
@@ -37,12 +37,8 @@ public class Main {
         final FPSAnimator animator = new FPSAnimator(myCanvas, 80, true);
 
         //
-        myCanvas.setSize(800, 600);
-
-        frame1.makeCanvas(myCanvas);
         animator.start();
     }
-
 
 }
 

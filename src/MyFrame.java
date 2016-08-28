@@ -2,52 +2,30 @@ import com.jogamp.opengl.awt.GLCanvas;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * Created by aakash on 28/8/16.
  */
 public class MyFrame extends JFrame {
-    private JFrame myFrame;
 
-    public void makeCanvas(GLCanvas myCanvas) {
-        //
-        myFrame = new JFrame("Paint");
-        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    private ToolBar toolbar1;
 
-        //
-        myFrame.getContentPane().add(BorderLayout.CENTER, myCanvas);
+    MyFrame(GLCanvas myCanvas){
 
-        //
-        JButton button1 = new JButton("CentreDraw");
-        button1.addActionListener(new button1_listener());
-        myFrame.getContentPane().add(BorderLayout.NORTH, button1);
+        super("Paint");
 
-        //
-        JButton button2 = new JButton("PencilDraw");
-        button2.addActionListener(new button2_listener());
-        myFrame.getContentPane().add(BorderLayout.SOUTH, button2);
+        setLayout(new BorderLayout());
 
-        //
-        myFrame.setSize(myFrame.getContentPane().getPreferredSize());
-        myFrame.setVisible(true);
+        toolbar1 = new ToolBar();
+
+        add(toolbar1, BorderLayout.NORTH);
+        add(myCanvas, BorderLayout.CENTER);
+
+
+        setSize(1200,800);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
 
     }
 
-    class button1_listener implements ActionListener {
-
-        public void actionPerformed(ActionEvent event) {
-            GlobalVariable.button_1 = true;
-            GlobalVariable.button_2 = false;
-        }
-    }
-
-    class button2_listener implements ActionListener {
-
-        public void actionPerformed(ActionEvent event) {
-            GlobalVariable.button_1 = false;
-            GlobalVariable.button_2 = true;
-        }
-    }
 }

@@ -58,7 +58,7 @@ class PenTool {
         gl.glPointSize(4.0f);
         gl.glLineWidth(4.0f);
 
-        if (GlobalVariable.button_1) {
+        if (GlobalVariable.lineToolButton) {
             gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
             gl.glBegin(GL2.GL_LINES);
             gl.glVertex2d(0,0);
@@ -68,7 +68,7 @@ class PenTool {
 
         }
 
-        if (GlobalVariable.button_2) {
+        if (GlobalVariable.penToolButton) {
 
             //gl.glClear(GL.GL_COLOR_BUFFER_BIT);
             gl.glColor3f(GlobalVariable.r, GlobalVariable.g, GlobalVariable.b);
