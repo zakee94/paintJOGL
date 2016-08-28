@@ -20,6 +20,8 @@ public class MyMouse implements  MouseListener, MouseMotionListener {
     public void mousePressed(MouseEvent e) {
         ML.setXCoordinate(e.getX());
         ML.setYCoordinate(e.getY());
+        ML.xSend = ML.getXCoordinate();
+        ML.ySend = ML.getYCoordinate();
     }
 
     public void mouseReleased(MouseEvent e) {

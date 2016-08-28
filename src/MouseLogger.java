@@ -3,19 +3,19 @@
  */
 public class MouseLogger {
 
-    double X, Y, xOld , yOld;
+    double X, Y, xOld , yOld, xSend, ySend;
     double ht, wd;
 
     //double X[] = new double[2];
     //double Y[] = new double[2];
 
     public void setXCoordinate(int i) {
-        xOld = getXCoordinate();
+        xOld = xSend;
         X = i;
     }
 
     public void setYCoordinate(int i) {
-        yOld = getYCoordinate();
+        yOld = ySend;
         Y = i;
     }
 
@@ -35,17 +35,19 @@ public class MouseLogger {
 
     public double getXCoordinate(){
 
-        if (X != wd/2)
-            return ((2*X - wd)/wd);
-
+        if (X != wd/2) {
+            xSend = (2 * X - wd) / wd;
+            return xSend;
+        }
         return 0;
     }
 
     public double getYCoordinate(){
 
-        if (Y != ht/2)
-            return ((ht - 2*Y)/ht);
-
+        if (Y != ht/2) {
+            ySend = (ht - 2 * Y) / ht;
+            return ySend;
+        }
         return 0;
     }
 
