@@ -7,7 +7,7 @@ public class ColorSelector {
 
 
 
-    public void setColor(int r, int g, int b) {
+    private void setColor(int r, int g, int b) {
 
         GlobalVariable.r = r;
         GlobalVariable.g = g;

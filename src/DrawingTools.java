@@ -47,11 +47,14 @@ public class DrawingTools  implements GLEventListener {
 class PenTool {
     private MouseLogger ML;
 
+
     PenTool(MouseLogger ML) {
         this.ML = ML;
     }
 
-    public void pen(GL2 gl){
+
+    public void pen(GL2 gl) {
+
         gl.glPointSize(4.0f);
         gl.glLineWidth(4.0f);
 
@@ -81,3 +84,46 @@ class PenTool {
 
     }
 }
+/**
+class PolygonTool {
+    private MouseLogger ML;
+
+
+    PolygonTool(MouseLogger ML) {
+        this.ML = ML;
+    }
+
+
+    public void triangle(GL2 gl) {
+
+        gl.glPointSize(4.0f);
+        gl.glLineWidth(4.0f);
+
+        gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
+        gl.glBegin(GL2.GL_TRIANGLES);
+        gl.glVertex2d(0,0);
+        gl.glVertex2d(0,0);
+        gl.glVertex2d(ML.getXCoordinate(), ML.getYCoordinate());
+        gl.glEnd();
+        gl.glFlush();
+
+
+    }
+    public void quads(GL2 gl) {
+
+        gl.glPointSize(4.0f);
+        gl.glLineWidth(4.0f);
+
+        gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
+        gl.glBegin(GL2.GL_QUADS);
+        gl.glVertex2d(0,0);
+        gl.glVertex2d(0,0);
+        gl.glVertex2d(0,0);
+        gl.glVertex2d(ML.getXCoordinate(), ML.getYCoordinate());
+        gl.glEnd();
+        gl.glFlush();
+
+
+    }
+}
+ */
