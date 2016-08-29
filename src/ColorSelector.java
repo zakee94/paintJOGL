@@ -47,16 +47,11 @@ public class ColorSelector extends JPanel implements ActionListener {
         group.add(yellowColor);
         group.add(greyColor);
 
-        redColor.setBackground(Color.RED);
-        redColor.setForeground(Color.BLACK);
-        greenColor.setBackground(Color.GREEN);
-        greenColor.setForeground(Color.BLACK);
-        greyColor.setBackground(Color.LIGHT_GRAY);
-        greyColor.setForeground(Color.BLACK);
-        blueColor.setBackground(Color.BLUE);
-        blueColor.setForeground(Color.BLACK);
-        yellowColor.setBackground(Color.YELLOW);
-        yellowColor.setForeground(Color.BLACK);
+        redColor.setForeground(Color.RED);
+        greenColor.setForeground(Color.GREEN);
+        blueColor.setForeground(Color.BLUE);
+        yellowColor.setForeground(Color.YELLOW);
+        greyColor.setForeground(Color.GRAY);
     }
 
 
@@ -75,24 +70,46 @@ public class ColorSelector extends JPanel implements ActionListener {
         GlobalVariable.g = 0;
         GlobalVariable.b = 0;
 
+        redColor.setForeground(Color.RED);
+        greenColor.setForeground(Color.GREEN);
+        blueColor.setForeground(Color.BLUE);
+        yellowColor.setForeground(Color.YELLOW);
+        greyColor.setForeground(Color.GRAY);
+
+        redColor.setBackground(null);
+        greenColor.setBackground(null);
+        blueColor.setBackground(null);
+        yellowColor.setBackground(null);
+        greyColor.setBackground(null);
+
         if(clicked == redColor) {
             GlobalVariable.r = 1;
+            redColor.setBackground(Color.RED);
+            redColor.setForeground(Color.BLACK);
         }
         else if(clicked == greenColor) {
             GlobalVariable.g = 1;
+            greenColor.setBackground(Color.GREEN);
+            greenColor.setForeground(Color.BLACK);
         }
         else if(clicked == blueColor) {
             GlobalVariable.b = 1;
+            blueColor.setBackground(Color.BLUE);
+            blueColor.setForeground(Color.BLACK);
             //GlobalVariable.animator = false;
         }
         else if(clicked == yellowColor) {
             GlobalVariable.r = 1;
             GlobalVariable.g = 1;
+            yellowColor.setBackground(Color.YELLOW);
+            yellowColor.setForeground(Color.BLACK);
         }
         else if(clicked == greyColor) {
             GlobalVariable.r = 0.753f;
             GlobalVariable.g = 0.753f;
             GlobalVariable.b = 0.753f;
+            greyColor.setBackground(Color.LIGHT_GRAY);
+            greyColor.setForeground(Color.BLACK);
         }
 
     }

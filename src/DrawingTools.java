@@ -20,10 +20,8 @@ public class DrawingTools  implements GLEventListener {
         PenTool pen1 = new PenTool(ML);
         LineTool line1 = new LineTool(ML);
         CircleTool circle1 = new CircleTool(ML);
-        /**
         TriangleTool triangle1 = new TriangleTool(ML);
         QuadTool quad1 = new QuadTool(ML);
-        */
 
         if (GlobalVariable.penToolButton) {
             pen1.pen(gl);
@@ -35,14 +33,12 @@ public class DrawingTools  implements GLEventListener {
             circle1.circle(gl);
         }
 
-        /**
         else if (GlobalVariable.triangleToolButton) {
             triangle1.triangle(gl);
         }
         else if (GlobalVariable.quadToolButton) {
             quad1.quad(gl);
         }
-        */
 
     }
 
@@ -121,7 +117,7 @@ class LineTool {
     }
 
 }
-/**
+
 class TriangleTool {
     private MouseLogger ML;
 
@@ -137,14 +133,19 @@ class TriangleTool {
         gl.glLineWidth(4.0f);
 
         gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
-        gl.glBegin(GL2.GL_TRIANGLES);
-        gl.glVertex2d(0,0);
-        gl.glVertex2d(0,0);
-        gl.glVertex2d(ML.getXCoordinate(), ML.getYCoordinate());
-        gl.glEnd();
+        if(GlobalVariable.polygonCreator == 2) {
+            gl.glBegin(GL2.GL_TRIANGLES);
+                gl.glVertex2d(GlobalVariable.X_poly[0], GlobalVariable.Y_poly[0]);
+                gl.glVertex2d(GlobalVariable.X_poly[1], GlobalVariable.Y_poly[1]);
+                gl.glVertex2d(GlobalVariable.X_poly[2], GlobalVariable.Y_poly[2]);
+            gl.glEnd();
+            GlobalVariable.polygonCreator = -1;
+        }
         gl.glFlush();
+
     }
 }
+
  class QuadTool {
     private MouseLogger ML;
 
@@ -157,16 +158,20 @@ class TriangleTool {
          gl.glLineWidth(4.0f);
 
          gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
-         gl.glBegin(GL2.GL_QUADS);
-         gl.glVertex2d(0,0);
-         gl.glVertex2d(0,0);
-         gl.glVertex2d(0,0);
-         gl.glVertex2d(ML.getXCoordinate(), ML.getYCoordinate());
-         gl.glEnd();
+        if(GlobalVariable.polygonCreator == 3) {
+            gl.glBegin(GL2.GL_QUADS);
+                gl.glVertex2d(GlobalVariable.X_poly[0], GlobalVariable.Y_poly[0]);
+                gl.glVertex2d(GlobalVariable.X_poly[1], GlobalVariable.Y_poly[1]);
+                gl.glVertex2d(GlobalVariable.X_poly[2], GlobalVariable.Y_poly[2]);
+                gl.glVertex2d(GlobalVariable.X_poly[3], GlobalVariable.Y_poly[3]);
+            gl.glEnd();
+            GlobalVariable.polygonCreator = -1;
+        }
          gl.glFlush();
+
     }
  }
-*/
+
 class CircleTool {
     private MouseLogger ML;
 

@@ -7,6 +7,7 @@ import java.awt.event.MouseMotionListener;
  */
 public class MyMouse implements  MouseListener, MouseMotionListener {
 
+    private static int i;
     //MouseLogger ML = new MouseLogger();
 
     private final MouseLogger ML;
@@ -15,7 +16,24 @@ public class MyMouse implements  MouseListener, MouseMotionListener {
     }
     //
     public void mouseClicked(MouseEvent e) {
+
         GlobalVariable.lineCreator = false;
+        if(GlobalVariable.triangleToolButton){
+            GlobalVariable.polygonCreator++;
+            i = GlobalVariable.polygonCreator;
+            GlobalVariable.X_poly[i] = ML.getXCoordinate();
+            GlobalVariable.Y_poly[i] = ML.getYCoordinate();
+            System.out.println(GlobalVariable.polygonCreator);
+            GlobalVariable.polygonCreator = GlobalVariable.polygonCreator % 3;
+        }
+        else if(GlobalVariable.quadToolButton){
+            GlobalVariable.polygonCreator++;
+            i = GlobalVariable.polygonCreator;
+            GlobalVariable.X_poly[i] = ML.getXCoordinate();
+            GlobalVariable.Y_poly[i] = ML.getYCoordinate();
+            System.out.println(GlobalVariable.polygonCreator);
+            GlobalVariable.polygonCreator = GlobalVariable.polygonCreator % 4;
+        }
     }
 
     public void mousePressed(MouseEvent e) {

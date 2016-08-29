@@ -10,6 +10,8 @@ public class ToolBar extends JPanel implements ActionListener {
     private JToggleButton triangleTool;
     private JToggleButton quadTool;
     private JToggleButton circleTool;
+    private JLabel label1;
+
 
     public ToolBar(){
         penTool = new JToggleButton("Pen");
@@ -17,6 +19,7 @@ public class ToolBar extends JPanel implements ActionListener {
         triangleTool = new JToggleButton("Triangles");
         quadTool = new JToggleButton("Quads");
         circleTool = new JToggleButton("Circle Var");
+        label1 = new JLabel(""+GlobalVariable.polygonCreator+"Points Chosen For PolyGon");
 
         penTool.addActionListener(this);
         lineTool.addActionListener(this);
@@ -31,6 +34,7 @@ public class ToolBar extends JPanel implements ActionListener {
         add(triangleTool);
         add(quadTool);
         add(circleTool);
+        add(label1 );
 
 
         ButtonGroup group = new ButtonGroup();
@@ -46,11 +50,13 @@ public class ToolBar extends JPanel implements ActionListener {
         lineTool.setForeground(Color.BLACK);
         circleTool.setBackground(Color.LIGHT_GRAY);
         circleTool.setForeground(Color.BLACK);
-        triangleTool.setBackground(Color.RED);
+        triangleTool.setBackground(Color.LIGHT_GRAY);
         triangleTool.setForeground(Color.BLACK);
-        quadTool.setBackground(Color.RED);
+        quadTool.setBackground(Color.LIGHT_GRAY);
         quadTool.setForeground(Color.BLACK);
     }
+
+
 
 
     //@Override

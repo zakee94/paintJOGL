@@ -28,6 +28,7 @@ public class MyFrame extends JFrame {
 
         setLayout(new BorderLayout());
 
+
         toolbar1 = new ToolBar();
         colorpick1 = new ColorSelector();
 
@@ -35,7 +36,6 @@ public class MyFrame extends JFrame {
         add(toolbar1, BorderLayout.NORTH);
         add(myCanvas, BorderLayout.CENTER);
         add(colorpick1, BorderLayout.WEST);
-
 
         setSize(1200,800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

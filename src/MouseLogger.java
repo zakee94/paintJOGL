@@ -5,9 +5,9 @@ public class MouseLogger {
 
     double X, Y, xOld , yOld, xSend, ySend, lineX, lineY,lineXEnd, lineYEnd;
     double ht, wd;
+    double X1, X2, X3, X4, Y1, Y2, Y3, Y4;
 
-    //double X[] = new double[2];
-    //double Y[] = new double[2];
+
 
     public void setXCoordinate(int i) {
         xOld = xSend;
