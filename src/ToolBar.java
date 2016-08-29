@@ -7,18 +7,18 @@ import java.awt.event.ActionListener;
  * Created by LENOVO on 8/28/2016.
  */
 public class ToolBar extends JPanel implements ActionListener {
-    private JButton penTool;
-    private JButton lineTool;
-    private JButton triangleTool;
-    private JButton quadTool;
-    private JButton circleTool;
+    private JToggleButton penTool;
+    private JToggleButton lineTool;
+    private JToggleButton triangleTool;
+    private JToggleButton quadTool;
+    private JToggleButton circleTool;
 
     public ToolBar(){
-        penTool = new JButton("Pen");
-        lineTool = new JButton("Lines");
-        triangleTool = new JButton("Triangles");
-        quadTool = new JButton("Quads");
-        circleTool = new JButton("Circle Var");
+        penTool = new JToggleButton("Pen");
+        lineTool = new JToggleButton("Lines");
+        triangleTool = new JToggleButton("Triangles");
+        quadTool = new JToggleButton("Quads");
+        circleTool = new JToggleButton("Circle Var");
 
         penTool.addActionListener(this);
         lineTool.addActionListener(this);
@@ -34,18 +34,30 @@ public class ToolBar extends JPanel implements ActionListener {
         add(quadTool);
         add(circleTool);
 
+
         ButtonGroup group = new ButtonGroup();
         group.add(penTool);
         group.add(lineTool);
         group.add(triangleTool);
         group.add(quadTool);
         group.add(circleTool);
+
+        penTool.setBackground(Color.LIGHT_GRAY);
+        penTool.setForeground(Color.BLACK);
+        lineTool.setBackground(Color.LIGHT_GRAY);
+        lineTool.setForeground(Color.BLACK);
+        circleTool.setBackground(Color.LIGHT_GRAY);
+        circleTool.setForeground(Color.BLACK);
+        triangleTool.setBackground(Color.RED);
+        triangleTool.setForeground(Color.BLACK);
+        quadTool.setBackground(Color.RED);
+        quadTool.setForeground(Color.BLACK);
     }
 
 
     //@Override
     public void actionPerformed(ActionEvent e) {
-        JButton clicked = (JButton)e.getSource();
+        JToggleButton clicked = (JToggleButton)e.getSource();
 
         GlobalVariable.penToolButton = false;
         GlobalVariable.lineToolButton = false;
