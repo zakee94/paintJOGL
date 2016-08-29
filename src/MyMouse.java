@@ -15,19 +15,35 @@ public class MyMouse implements  MouseListener, MouseMotionListener {
     }
     //
     public void mouseClicked(MouseEvent e) {
+        GlobalVariable.lineCreator = false;
     }
 
     public void mousePressed(MouseEvent e) {
+
+
         ML.setXCoordinate(e.getX());
         ML.setYCoordinate(e.getY());
         ML.xSend = ML.getXCoordinate();
         ML.ySend = ML.getYCoordinate();
+
+        ML.lineX = ML.xSend;
+        ML.lineY = ML.ySend;
+        GlobalVariable.lineCreator = false;
+
     }
 
     public void mouseReleased(MouseEvent e) {
         GlobalVariable.mouse_drag = false;
-        ML.setXCoordinate(e.getX());
-        ML.setYCoordinate(e.getY());
+        if(GlobalVariable.penToolButton) {
+            ML.setXCoordinate(e.getX());
+            ML.setYCoordinate(e.getY());
+        }
+
+        if(GlobalVariable.lineToolButton || GlobalVariable.circleToolButton) {
+            ML.lineXEnd = ML.getXCoordinate();
+            ML.lineYEnd = ML.getYCoordinate();
+            GlobalVariable.lineCreator = true;
+        }
     }
 
     public void mouseEntered(MouseEvent e) {
@@ -41,7 +57,6 @@ public class MyMouse implements  MouseListener, MouseMotionListener {
         GlobalVariable.mouse_drag = true;
         ML.setXCoordinate(e.getX());
         ML.setYCoordinate(e.getY());
-        System.out.println("Mouse Dragged: ("+e.getX()+", "+e.getY() +")");
     }
 
     public void mouseMoved(MouseEvent e){

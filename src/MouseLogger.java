@@ -3,7 +3,7 @@
  */
 public class MouseLogger {
 
-    double X, Y, xOld , yOld, xSend, ySend;
+    double X, Y, xOld , yOld, xSend, ySend, lineX, lineY,lineXEnd, lineYEnd;
     double ht, wd;
 
     //double X[] = new double[2];

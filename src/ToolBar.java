@@ -18,7 +18,7 @@ public class ToolBar extends JPanel implements ActionListener {
         lineTool = new JButton("Lines");
         triangleTool = new JButton("Triangles");
         quadTool = new JButton("Quads");
-        circleTool = new JButton("Circle");
+        circleTool = new JButton("Circle Var");
 
         penTool.addActionListener(this);
         lineTool.addActionListener(this);
@@ -36,27 +36,33 @@ public class ToolBar extends JPanel implements ActionListener {
     }
 
 
-    @Override
+    //@Override
     public void actionPerformed(ActionEvent e) {
         JButton clicked = (JButton)e.getSource();
 
+        GlobalVariable.penToolButton = false;
+        GlobalVariable.lineToolButton = false;
+        GlobalVariable.triangleToolButton = false;
+        GlobalVariable.quadToolButton = false;
+        GlobalVariable.circleToolButton = false;
+
         if(clicked == penTool) {
-            GlobalVariable.lineToolButton = false;
             GlobalVariable.penToolButton = true;
         }
         else if(clicked == lineTool) {
             GlobalVariable.lineToolButton = true;
-            GlobalVariable.penToolButton = false;
-        }
-        else if(clicked == triangleTool) {
-
-        }
-        else if(clicked == quadTool) {
-
         }
         else if(clicked == circleTool) {
-
+            GlobalVariable.circleToolButton = true;
+            //GlobalVariable.animator = false;
         }
+        else if(clicked == triangleTool) {
+            GlobalVariable.triangleToolButton = true;
+        }
+        else if(clicked == quadTool) {
+            GlobalVariable.quadToolButton = true;
+        }
+
 
     }
 }

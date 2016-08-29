@@ -3,9 +3,13 @@
  */
 public class GlobalVariable {
 
+    //public static boolean animator = false;
+
     public static boolean mouse_drag = false;
 
     public static float r = 0, g = 1, b = 0;
+    public static boolean lineCreator = false;
+    public static int polygonCreator = 0;
 
     public static boolean penToolButton = false;
     public static boolean lineToolButton = false;
