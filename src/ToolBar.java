@@ -3,9 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by LENOVO on 8/28/2016.
- */
+
 public class ToolBar extends JPanel implements ActionListener {
     private JToggleButton penTool;
     private JToggleButton lineTool;
