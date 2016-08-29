@@ -33,6 +33,13 @@ public class ToolBar extends JPanel implements ActionListener {
         add(triangleTool);
         add(quadTool);
         add(circleTool);
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(penTool);
+        group.add(lineTool);
+        group.add(triangleTool);
+        group.add(quadTool);
+        group.add(circleTool);
     }
 
 
