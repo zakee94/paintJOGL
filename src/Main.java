@@ -7,8 +7,6 @@ import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.FPSAnimator;
 
-import javax.swing.*;
-
 
 public class Main {
 
@@ -36,7 +34,7 @@ public class Main {
         myCanvas.addMouseMotionListener(mouse1);
 
         //
-        final FPSAnimator animator = new FPSAnimator(myCanvas, 80, true);
+        final FPSAnimator animator = new FPSAnimator(myCanvas, 120, true);
 
         //
         animator.start();

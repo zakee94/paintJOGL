@@ -19,7 +19,7 @@ public class ToolBar extends JPanel implements ActionListener {
         triangleTool = new JToggleButton("Triangles");
         quadTool = new JToggleButton("Quads");
         circleTool = new JToggleButton("Circle Var");
-        label1 = new JLabel(""+GlobalVariable.polygonCreator+"Points Chosen For PolyGon");
+        label1 = new JLabel("By Default Pen(Green) has been selected!");
 
         penTool.addActionListener(this);
         lineTool.addActionListener(this);

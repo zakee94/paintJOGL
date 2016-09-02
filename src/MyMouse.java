@@ -8,13 +8,12 @@ import java.awt.event.MouseMotionListener;
 public class MyMouse implements  MouseListener, MouseMotionListener {
 
     private static int i;
-    //MouseLogger ML = new MouseLogger();
 
     private final MouseLogger ML;
     MyMouse(MouseLogger ML) {
         this.ML = ML;
     }
-    //
+
     public void mouseClicked(MouseEvent e) {
 
         GlobalVariable.lineCreator = false;
@@ -41,11 +40,8 @@ public class MyMouse implements  MouseListener, MouseMotionListener {
 
         ML.setXCoordinate(e.getX());
         ML.setYCoordinate(e.getY());
-        ML.xSend = ML.getXCoordinate();
-        ML.ySend = ML.getYCoordinate();
-
-        ML.lineX = ML.xSend;
-        ML.lineY = ML.ySend;
+        ML.lineX = ML.getXCoordinate();
+        ML.lineY = ML.getYCoordinate();
         GlobalVariable.lineCreator = false;
 
     }
@@ -65,9 +61,11 @@ public class MyMouse implements  MouseListener, MouseMotionListener {
     }
 
     public void mouseEntered(MouseEvent e) {
+
     }
 
     public void mouseExited(MouseEvent e) {
+
         GlobalVariable.mouse_drag = false;
     }
 

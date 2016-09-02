@@ -19,6 +19,4 @@ public class GlobalVariable {
     public static boolean quadToolButton = false;
     public static boolean circleToolButton = false;
 
-
-
 }
