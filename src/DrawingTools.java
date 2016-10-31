@@ -23,7 +23,10 @@ public class DrawingTools  implements GLEventListener {
         QuadTool quad1 = new QuadTool();
 
         if (GlobalVariable.penToolButton) {
-            pen1.pen(gl);
+            if (GlobalVariable.eraser_flag)
+                pen1.pen(gl, true);
+            else
+                pen1.pen(gl, false);
         }
         else if (GlobalVariable.lineToolButton && !GlobalVariable.mouse_drag) {
             line1.line(gl);
@@ -75,12 +78,20 @@ class PenTool {
         this.ML = ML;
     }
 
-    public void pen(GL2 gl) {
+    public void pen(GL2 gl, boolean flag) {
 
-        gl.glPointSize(4.0f);
-        gl.glLineWidth(4.0f);
+        if (flag) {
+            gl.glPointSize(100f);
+            gl.glLineWidth(100f);
+            gl.glColor3f(1f, 1f, 1f);
 
-        gl.glColor3f(GlobalVariable.r, GlobalVariable.g, GlobalVariable.b);
+        }
+        else {
+            gl.glPointSize(4.0f);
+            gl.glLineWidth(4.0f);
+            gl.glColor3f(GlobalVariable.r, GlobalVariable.g, GlobalVariable.b);
+        }
+
         gl.glBegin(GL2.GL_LINES);
         if (GlobalVariable.mouse_drag) {
             gl.glVertex2d(ML.getXOld(), ML.getYOld());
