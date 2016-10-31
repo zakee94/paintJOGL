@@ -6,6 +6,7 @@ public class GlobalVariable {
     //public static boolean animator = false;
 
     public static boolean mouse_drag = false;
+    public static boolean eraser_flag = false;
 
     public static float r = 0, g = 1, b = 0;
     public static boolean lineCreator = false;

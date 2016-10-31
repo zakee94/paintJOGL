@@ -10,6 +10,7 @@ public class ToolBar extends JPanel implements ActionListener {
     private JToggleButton triangleTool;
     private JToggleButton quadTool;
     private JToggleButton circleTool;
+    private JToggleButton eraserTool;
     private JLabel label1;
 
 
@@ -19,6 +20,7 @@ public class ToolBar extends JPanel implements ActionListener {
         triangleTool = new JToggleButton("Triangles");
         quadTool = new JToggleButton("Quads");
         circleTool = new JToggleButton("Circle Var");
+        eraserTool = new JToggleButton("Eraser");
         label1 = new JLabel("By Default Pen(Green) has been selected!");
 
         penTool.addActionListener(this);
@@ -26,6 +28,7 @@ public class ToolBar extends JPanel implements ActionListener {
         triangleTool.addActionListener(this);
         quadTool.addActionListener(this);
         circleTool.addActionListener(this);
+        eraserTool.addActionListener(this);
 
         setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -34,6 +37,7 @@ public class ToolBar extends JPanel implements ActionListener {
         add(triangleTool);
         add(quadTool);
         add(circleTool);
+        add(eraserTool);
         add(label1 );
 
 
@@ -43,6 +47,7 @@ public class ToolBar extends JPanel implements ActionListener {
         group.add(triangleTool);
         group.add(quadTool);
         group.add(circleTool);
+        group.add(eraserTool);
 
         penTool.setBackground(Color.LIGHT_GRAY);
         penTool.setForeground(Color.BLACK);
@@ -54,6 +59,8 @@ public class ToolBar extends JPanel implements ActionListener {
         triangleTool.setForeground(Color.BLACK);
         quadTool.setBackground(Color.LIGHT_GRAY);
         quadTool.setForeground(Color.BLACK);
+        eraserTool.setBackground(Color.LIGHT_GRAY);
+        eraserTool.setForeground(Color.BLACK);
     }
 
 
@@ -71,21 +78,30 @@ public class ToolBar extends JPanel implements ActionListener {
 
         if(clicked == penTool) {
             GlobalVariable.penToolButton = true;
+            GlobalVariable.eraser_flag = false;
+            //label1.setText("Pen selected");
         }
         else if(clicked == lineTool) {
             GlobalVariable.lineToolButton = true;
+            //label1.setText("Lines selected");
         }
         else if(clicked == circleTool) {
             GlobalVariable.circleToolButton = true;
-            //GlobalVariable.animator = false;
+            //label1.setText("Circle selected");
         }
         else if(clicked == triangleTool) {
             GlobalVariable.triangleToolButton = true;
+            //label1.setText("Triangle selected");
         }
         else if(clicked == quadTool) {
             GlobalVariable.quadToolButton = true;
+            //label1.setText("Quadrilateral selected");
         }
-
+        else if(clicked == eraserTool) {
+            GlobalVariable.penToolButton = true;
+            GlobalVariable.eraser_flag = true;
+            //label1.setText("Eraser selected");
+        }
 
     }
 }
