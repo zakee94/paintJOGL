@@ -20,6 +20,7 @@ public class GlobalVariable {
     public static boolean quadToolButton = false;
     public static boolean circleToolButton = false;
 
+    public static int frameWidth, frameHeight;
 
     public static String fileExtension(String name) {
         String ext = null;

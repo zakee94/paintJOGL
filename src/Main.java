@@ -7,6 +7,14 @@ import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.FPSAnimator;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 public class Main {
 
@@ -22,7 +30,7 @@ public class Main {
         /**/
         myCanvas = new GLCanvas(capabilities);
 
-        DrawingTools mainInstance = new  DrawingTools();
+        DrawingTools mainInstance = new DrawingTools();
 
         MyFrame frame1 = new MyFrame(myCanvas);
 
@@ -39,6 +47,5 @@ public class Main {
         //
         animator.start();
     }
-
 }
 
