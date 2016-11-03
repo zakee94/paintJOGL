@@ -3,8 +3,9 @@ import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.glu.GLU;
 
-import static java.lang.Math.*;
-
+import static java.lang.Math.cos;
+import static java.lang.StrictMath.sin;
+import static java.lang.StrictMath.sqrt;
 
 /**
  * Created by aakash on 28/8/16.
@@ -60,13 +61,12 @@ public class DrawingTools  implements GLEventListener {
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
         System.out.println("If1");
         GL2 gl = drawable.getGL().getGL2();
-
         final GLU glu = new GLU();
-        glu.gluOrtho2D( 0, width, height, 0);
-
         gl.glViewport(0, 0, width, height);
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
+        ML.ht = (double)height;
+        ML.wd = (double)width;
     }
 
 }
@@ -182,52 +182,39 @@ class CircleTool {
     }
 
     public void circle(GL2 gl) {
-
-        double x, y, xi, yi, a, b, Di, radius;
-
-        a = (ML.lineX - ML.lineXEnd);
-        b = (ML.lineY - ML.lineYEnd);
-
-        radius = (int) sqrt((a*a)+ (b*b));
-
-        System.out.println(a+" "+ML.lineX+" "+ML.lineXEnd);
-        System.out.println(b+" "+ML.lineY+" "+ML.lineYEnd);
-        System.out.println(radius);
-
-        Di = 1 - radius;
-        xi = 0;
-        yi = radius;
-
-        while(yi > xi) {
-            xi = xi + 1;
-            if(Di < 0){
-                Di = Di + (2*xi) + 3;
-            }
-            else{
-                yi = yi - 1;
-                Di = Di + (2*xi) - (2*yi) + 5;
-            }
-            x = ML.lineX + xi;
-            y = ML.lineY + yi;
-
-            gl.glBegin(GL2.GL_LINES);
-
+        double radius = 0;
+        double theta, n, x, y, x1, y1, a, b;
+        n = 3.141/180;
+        a = (ML.lineX - ML.lineXEnd)*(ML.lineX - ML.lineXEnd);
+        b = (ML.lineY - ML.lineYEnd)*(ML.lineY - ML.lineYEnd);
+        radius = sqrt(a + b);
+        for(theta=0;theta<=45;theta++) {
+            x1=radius*cos(theta*n);
+            y1=radius*sin(theta*n);
+            x=ML.lineX + x1;
+            y=ML.lineY + y1;
             gl.glColor3f(1,0,0);
+            gl.glBegin(GL2.GL_LINES);
                 gl.glVertex2d(y, -x);
-                gl.glVertex2d(-x, y);
+                gl.glVertex2d(-y, x);
+            gl.glEnd();
 
             gl.glColor3f(0,1,0);
+            gl.glBegin(GL2.GL_LINES);
                 gl.glVertex2d(y, x);
-                gl.glVertex2d(x, y);
+                gl.glVertex2d(-y, -x);
+            gl.glEnd();
 
             gl.glColor3f(1,0,1);
+            gl.glBegin(GL2.GL_LINES);
                 gl.glVertex2d(x, -y);
-                gl.glVertex2d(-y, x);
+                gl.glVertex2d(-x, y);
+            gl.glEnd();
 
             gl.glColor3f(0,1,1);
-                gl.glVertex2d(-y, -x);
+            gl.glBegin(GL2.GL_LINES);
+                gl.glVertex2d(x, y);
                 gl.glVertex2d(-x, -y);
-
             gl.glEnd();
         }
         gl.glFlush();

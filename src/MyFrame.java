@@ -8,6 +8,8 @@ import java.awt.*;
  */
 public class MyFrame extends JFrame {
 
+    private JFileChooser fileChooser;
+
     private ToolBar toolbar1;
     private ColorSelector colorpick1;
 
@@ -27,10 +29,13 @@ public class MyFrame extends JFrame {
         }
 
         setLayout(new BorderLayout());
-
-
+        /*Threading*/
+        fileChooser = new JFileChooser();
+        new Thread(new MenuThreading(fileChooser)).start();
+        /*RThreading*/
         toolbar1 = new ToolBar();
         colorpick1 = new ColorSelector();
+
 
 
         add(toolbar1, BorderLayout.NORTH);
@@ -41,6 +46,20 @@ public class MyFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
+    } // Constructor Finishes Here
+
+/***************************************/
+    class MenuThreading extends Thread{
+        JFileChooser fileChooser;
+        MenuThreading(JFileChooser fileChooser){
+            this.fileChooser = fileChooser;
+        }
+        public void run(){
+            fileChooser.addChoosableFileFilter(new FileType());
+            MenuBarClass MBC = new MenuBarClass(fileChooser);
+            setJMenuBar(MBC.menuBar());
+        }
     }
+/*********************************************************************/
 
 }
