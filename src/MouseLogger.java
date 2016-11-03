@@ -3,44 +3,52 @@
  */
 public class MouseLogger {
 
-    double X, Y, xOld , yOld, getX, getY;
-    double lineX, lineY,lineXEnd, lineYEnd;
+    double X, Y, xOld , yOld, xSend, ySend, lineX, lineY,lineXEnd, lineYEnd;
+    double ht, wd;
+    double X1, X2, X3, X4, Y1, Y2, Y3, Y4;
 
 
 
     public void setXCoordinate(int i) {
-        xOld = getX;
+        xOld = xSend;
         X = i;
     }
 
     public void setYCoordinate(int i) {
-        yOld = getY;
+        yOld = ySend;
         Y = i;
     }
 
     public double getXOld(){
         if (GlobalVariable.mouse_drag = false)
-            return getX;
-
+            return getXCoordinate();
         return xOld;
     }
 
     public double getYOld(){
 
         if (GlobalVariable.mouse_drag = false)
-            return getY;
+            return getYCoordinate();
 
         return yOld;
     }
 
-    public double getXCoordinate() {
-        getX = X;
-        return X;
+    public double getXCoordinate(){
+
+        if (X != wd/2) {
+            xSend = (2 * X - wd) / wd;
+            return xSend;
+        }
+        return 0;
     }
 
     public double getYCoordinate(){
-        getY = Y;
-        return Y;
+
+        if (Y != ht/2) {
+            ySend = (ht - 2 * Y) / ht;
+            return ySend;
+        }
+        return 0;
     }
 
 }
