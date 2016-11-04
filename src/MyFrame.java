@@ -42,7 +42,7 @@ public class MyFrame extends JFrame {
         add(myCanvas, BorderLayout.CENTER);
         add(colorpick1, BorderLayout.WEST);
 
-        setSize(1200,800);
+        setSize(1280,720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 

@@ -11,6 +11,7 @@ public class ToolBar extends JPanel implements ActionListener {
     private JToggleButton quadTool;
     private JToggleButton circleTool;
     private JToggleButton eraserTool;
+    private JToggleButton saveTool;
     private JLabel label1;
 
 
@@ -21,6 +22,7 @@ public class ToolBar extends JPanel implements ActionListener {
         quadTool = new JToggleButton("Quads");
         circleTool = new JToggleButton("Circle Var");
         eraserTool = new JToggleButton("Eraser");
+        saveTool = new JToggleButton("Save");
         label1 = new JLabel("By Default Pen(Green) has been selected!");
 
         penTool.addActionListener(this);
@@ -29,6 +31,7 @@ public class ToolBar extends JPanel implements ActionListener {
         quadTool.addActionListener(this);
         circleTool.addActionListener(this);
         eraserTool.addActionListener(this);
+        saveTool.addActionListener(this);
 
         setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -38,6 +41,7 @@ public class ToolBar extends JPanel implements ActionListener {
         add(quadTool);
         add(circleTool);
         add(eraserTool);
+        add(saveTool);
         add(label1 );
 
 
@@ -48,6 +52,7 @@ public class ToolBar extends JPanel implements ActionListener {
         group.add(quadTool);
         group.add(circleTool);
         group.add(eraserTool);
+        group.add(saveTool);
 
         penTool.setBackground(Color.LIGHT_GRAY);
         penTool.setForeground(Color.BLACK);
@@ -61,6 +66,8 @@ public class ToolBar extends JPanel implements ActionListener {
         quadTool.setForeground(Color.BLACK);
         eraserTool.setBackground(Color.LIGHT_GRAY);
         eraserTool.setForeground(Color.BLACK);
+        saveTool.setBackground(Color.LIGHT_GRAY);
+        saveTool.setForeground(Color.BLACK);
     }
 
 
@@ -75,15 +82,17 @@ public class ToolBar extends JPanel implements ActionListener {
         GlobalVariable.triangleToolButton = false;
         GlobalVariable.quadToolButton = false;
         GlobalVariable.circleToolButton = false;
+        GlobalVariable.eraser_flag = false;
+        GlobalVariable.save = false;
 
         if(clicked == penTool) {
             GlobalVariable.penToolButton = true;
             GlobalVariable.eraser_flag = false;
-            //label1.setText("Pen selected");
+            label1.setText("");
         }
         else if(clicked == lineTool) {
             GlobalVariable.lineToolButton = true;
-            //label1.setText("Lines selected");
+            label1.setText("");
         }
         else if(clicked == circleTool) {
             GlobalVariable.circleToolButton = true;
@@ -101,6 +110,9 @@ public class ToolBar extends JPanel implements ActionListener {
             GlobalVariable.penToolButton = true;
             GlobalVariable.eraser_flag = true;
             //label1.setText("Eraser selected");
+        }
+        else if(clicked == saveTool) {
+            GlobalVariable.save = true;
         }
 
     }

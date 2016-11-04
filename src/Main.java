@@ -8,6 +8,7 @@ import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.FPSAnimator;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -32,7 +33,7 @@ public class Main {
 
         DrawingTools mainInstance = new DrawingTools();
 
-        MyFrame frame1 = new MyFrame(myCanvas);
+        final MyFrame frame1 = new MyFrame(myCanvas);
 
         MyMouse mouse1 = new MyMouse(DrawingTools.ML);
         /**/
@@ -42,10 +43,30 @@ public class Main {
         myCanvas.addMouseMotionListener(mouse1);
 
         //
-        final FPSAnimator animator = new FPSAnimator(myCanvas, 120, true);
+        final FPSAnimator animator = new FPSAnimator(myCanvas, 30, true);
 
         //
         animator.start();
+
+        //
+        frame1.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(frame1,
+                        "Save on exit ?", "Really Closing?",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                    if (GlobalVariable.shot != null) {
+                        try {
+                            ImageIO.write(GlobalVariable.shot, "png", new File("/home/zakee94/Java_Project/Codes/paintJOGL/screen.png"));
+                        } catch (IOException ex) {
+                            // You know ... what to do here :P
+                        }
+                    }
+                    System.exit(0);
+                }
+            }
+        });
     }
 }
 
