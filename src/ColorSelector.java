@@ -13,6 +13,7 @@ public class ColorSelector extends JPanel implements ActionListener {
     private JToggleButton blueColor;
     private JToggleButton yellowColor;
     private JToggleButton greyColor;
+    private JToggleButton blackColor;
 
     public ColorSelector(){
 
@@ -22,14 +23,16 @@ public class ColorSelector extends JPanel implements ActionListener {
         blueColor = new JToggleButton("Blue");
         yellowColor = new JToggleButton("Yellow");
         greyColor = new JToggleButton("Grey");
+        blackColor = new JToggleButton("Black");
 
         redColor.addActionListener(this);
         greenColor.addActionListener(this);
         blueColor.addActionListener(this);
         yellowColor.addActionListener(this);
         greyColor.addActionListener(this);
+        blackColor.addActionListener(this);
 
-        setLayout(new GridLayout(5,0));
+        setLayout(new GridLayout(6,0));
         // add(Box.createVerticalGlue());
 
         add(redColor);
@@ -37,6 +40,7 @@ public class ColorSelector extends JPanel implements ActionListener {
         add(blueColor);
         add(yellowColor);
         add(greyColor);
+        add(blackColor);
 
 
         ButtonGroup group = new ButtonGroup();
@@ -45,12 +49,14 @@ public class ColorSelector extends JPanel implements ActionListener {
         group.add(blueColor);
         group.add(yellowColor);
         group.add(greyColor);
+        group.add(blackColor);
 
         redColor.setForeground(Color.RED);
         greenColor.setForeground(Color.GREEN);
         blueColor.setForeground(Color.BLUE);
         yellowColor.setForeground(Color.YELLOW);
         greyColor.setForeground(Color.GRAY);
+        blackColor.setForeground(Color.BLACK);
     }
 
 
@@ -74,12 +80,14 @@ public class ColorSelector extends JPanel implements ActionListener {
         blueColor.setForeground(Color.BLUE);
         yellowColor.setForeground(Color.YELLOW);
         greyColor.setForeground(Color.GRAY);
+        blackColor.setForeground(Color.BLACK);
 
         redColor.setBackground(null);
         greenColor.setBackground(null);
         blueColor.setBackground(null);
         yellowColor.setBackground(null);
         greyColor.setBackground(null);
+        blackColor.setBackground(null);
 
         if(clicked == redColor) {
             GlobalVariable.r = 1;
@@ -95,7 +103,6 @@ public class ColorSelector extends JPanel implements ActionListener {
             GlobalVariable.b = 1;
             blueColor.setBackground(Color.BLUE);
             blueColor.setForeground(Color.BLACK);
-            //GlobalVariable.animator = false;
         }
         else if(clicked == yellowColor) {
             GlobalVariable.r = 1;
@@ -109,6 +116,13 @@ public class ColorSelector extends JPanel implements ActionListener {
             GlobalVariable.b = 0.753f;
             greyColor.setBackground(Color.LIGHT_GRAY);
             greyColor.setForeground(Color.BLACK);
+        }
+        else if(clicked == blackColor) {
+            GlobalVariable.r = 0;
+            GlobalVariable.g = 0;
+            GlobalVariable.b = 0;
+            blackColor.setBackground(Color.BLACK);
+            blackColor.setForeground(Color.WHITE);
         }
 
     }
