@@ -1,22 +1,10 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.ByteBuffer;
-
-import com.jogamp.common.nio.Buffers;
-import com.jogamp.opengl.GL2;
-import com.jogamp.opengl.GLAutoDrawable;
-import com.jogamp.opengl.util.awt.AWTGLReadBufferUtil;
-
-import static com.jogamp.opengl.GL.GL_BYTE;
-import static com.jogamp.opengl.GL.GL_RGB;
-
 /**
  * Created by LENOVO on 9/1/2016.
  */
@@ -53,7 +41,7 @@ public class MenuBarClass {
         openFileJMI.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) ;
+                if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION);
                 // MyFrame.this -- So that it knows where its Parent is
                 /**The APPROVE_OPTION Checks whether file is opened
                  * Here We can Write the type and location to open File
@@ -67,7 +55,13 @@ public class MenuBarClass {
             public void actionPerformed(ActionEvent e) {
                 if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
                     System.out.println("hi");
+                    //GlobalVariable.save = true;
 
+                    try {
+                        ImageIO.write(GlobalVariable.shot, "png", new File("/home/zakee94/Java_Project/Codes/paintJOGL/screen.png"));
+                    } catch (IOException ex) {
+                        // You know ... what to do here :P
+                    }
                 }
                 // MyFrame.this -- So that it knows where its Parent is
                 /**The APPROVE_OPTION Checks whether file is opened

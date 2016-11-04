@@ -1,3 +1,5 @@
+import java.awt.image.BufferedImage;
+
 /**
  * Created by aakash on 26/8/16.
  */
@@ -19,8 +21,11 @@ public class GlobalVariable {
     public static boolean triangleToolButton = false;
     public static boolean quadToolButton = false;
     public static boolean circleToolButton = false;
+    public static boolean save = false;
 
     public static int frameWidth, frameHeight;
+
+    public static BufferedImage shot;
 
     public static String fileExtension(String name) {
         String ext = null;

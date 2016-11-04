@@ -1,18 +1,9 @@
-import com.jogamp.common.nio.Buffers;
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.glu.GLU;
-
-import javax.imageio.ImageIO;
-import java.awt.*;
+import com.jogamp.opengl.util.awt.AWTGLReadBufferUtil;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.nio.ByteBuffer;
-
-import static com.jogamp.opengl.GL.GL_BYTE;
-import static com.jogamp.opengl.GL.GL_RGB;
 import static java.lang.Math.cos;
 import static java.lang.StrictMath.sin;
 import static java.lang.StrictMath.sqrt;
@@ -32,6 +23,7 @@ public class DrawingTools  implements GLEventListener {
         CircleTool circle1 = new CircleTool(ML);
         TriangleTool triangle1 = new TriangleTool();
         QuadTool quad1 = new QuadTool();
+        fileSave save1 = new fileSave();
 
         if (GlobalVariable.penToolButton) {
             if (GlobalVariable.eraser_flag)
@@ -52,7 +44,9 @@ public class DrawingTools  implements GLEventListener {
         else if (GlobalVariable.quadToolButton) {
             quad1.quad(gl);
         }
-
+        else if(GlobalVariable.save) {
+            save1.screenshot(drawable);
+        }
     }
 
     public void dispose(GLAutoDrawable arg0) {
@@ -82,31 +76,6 @@ public class DrawingTools  implements GLEventListener {
         System.out.println(width);
         System.out.println(height);
     }
-
-    /*public BufferedImage makeScreenshot(GLAutoDrawable drawable) {
-        int width = 1854, height = 996;
-
-        GL2 gl = drawable.getGL().getGL2();
-
-        BufferedImage screenshot = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        Graphics graphics = screenshot.getGraphics();
-
-        ByteBuffer buffer = Buffers.newDirectByteBuffer(width * height * 3);
-
-        gl.glReadPixels(0, 0, width, height, GL_RGB, GL_BYTE, buffer);
-
-
-        for (int h = 0; h < height; h++) {
-            for (int w = 0; w < width; w++) {
-                // The color are the three consecutive bytes, it's like referencing
-                // to the next consecutive array elements, so we got red, green, blue..
-                // red, green, blue, and so on..
-                graphics.setColor(new Color( buffer.get()*2, buffer.get()*2, buffer.get()*2 ));
-                graphics.drawRect(w,height - h, 1, 1); // height - h is for flipping the image
-            }
-        }
-        return screenshot;
-    }*/
 }
 
 class PenTool {
@@ -220,69 +189,52 @@ class CircleTool {
     }
 
     public void circle(GL2 gl) {
-        /*double radius = 0;
+        double radius = 0;
         double theta, n, x, y, x1, y1, a, b;
-        n = 3.141/180;
-        a = (ML.lineX - ML.lineXEnd)*(ML.lineX - ML.lineXEnd);
-        b = (ML.lineY - ML.lineYEnd)*(ML.lineY - ML.lineYEnd);
+        n = 3.141 / 180;
+        a = (ML.lineX - ML.lineXEnd) * (ML.lineX - ML.lineXEnd);
+        b = (ML.lineY - ML.lineYEnd) * (ML.lineY - ML.lineYEnd);
         radius = sqrt(a + b);
-        for(theta=0;theta<=45;theta++) {
-            x1=radius*cos(theta*n);
-            y1=radius*sin(theta*n);
-            x=ML.lineX + x1;
-            y=ML.lineY + y1;
-            gl.glColor3f(1,0,0);
+        for (theta = 0; theta <= 45; theta++) {
+            x1 = radius * cos(theta * n);
+            y1 = radius * sin(theta * n);
+            x = ML.lineX + x1;
+            y = ML.lineY + y1;
+            gl.glColor3f(1, 0, 0);
             gl.glBegin(GL2.GL_LINES);
-                gl.glVertex2d(y, -x);
-                gl.glVertex2d(-y, x);
+            gl.glVertex2d(y, -x);
+            gl.glVertex2d(-y, x);
             gl.glEnd();
 
-            gl.glColor3f(0,1,0);
+            gl.glColor3f(0, 1, 0);
             gl.glBegin(GL2.GL_LINES);
-                gl.glVertex2d(y, x);
-                gl.glVertex2d(-y, -x);
+            gl.glVertex2d(y, x);
+            gl.glVertex2d(-y, -x);
             gl.glEnd();
 
-            gl.glColor3f(1,0,1);
+            gl.glColor3f(1, 0, 1);
             gl.glBegin(GL2.GL_LINES);
-                gl.glVertex2d(x, -y);
-                gl.glVertex2d(-x, y);
+            gl.glVertex2d(x, -y);
+            gl.glVertex2d(-x, y);
             gl.glEnd();
 
-            gl.glColor3f(0,1,1);
+            gl.glColor3f(0, 1, 1);
             gl.glBegin(GL2.GL_LINES);
-                gl.glVertex2d(x, y);
-                gl.glVertex2d(-x, -y);
+            gl.glVertex2d(x, y);
+            gl.glVertex2d(-x, -y);
             gl.glEnd();
         }
-        gl.glFlush();*/
-        int width = GlobalVariable.frameWidth + 6, height = GlobalVariable.frameHeight;
-        //int width = 1140, height = 739;
+        gl.glFlush();
+    }
 
-        //GL2 gl = drawable.getGL().getGL2();
+}
 
-        BufferedImage screenshot = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        Graphics graphics = screenshot.getGraphics();
+class fileSave {
+    public void screenshot(GLAutoDrawable glad) {
 
-        ByteBuffer buffer = Buffers.newDirectByteBuffer(width * height * 3);
+        AWTGLReadBufferUtil glReadBufferUtil = new AWTGLReadBufferUtil(glad.getGLProfile(), false);
+        BufferedImage screenshot = glReadBufferUtil.readPixelsToBufferedImage(glad.getGL(), true);
 
-        gl.glReadPixels(0, 0, width, height, GL_RGB, GL_BYTE, buffer);
-
-
-        for (int h = 0; h < height; h++) {
-            for (int w = 0; w < width; w++) {
-                // The color are the three consecutive bytes, it's like referencing
-                // to the next consecutive array elements, so we got red, green, blue..
-                // red, green, blue, and so on..
-                graphics.setColor(new Color( buffer.get()*2, buffer.get()*2, buffer.get()*2 ));
-                graphics.drawRect(w,height - h, 1, 1); // height - h is for flipping the image
-            }
-        }
-
-        try {
-            ImageIO.write(screenshot, "png", new File("/home/zakee94/Java_Project/Codes/paintJOGL/screen.png"));
-        } catch (IOException ex) {
-            // You know ... what to do here :P
-        }
+        GlobalVariable.shot = screenshot;
     }
 }
