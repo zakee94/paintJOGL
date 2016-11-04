@@ -24,6 +24,7 @@ public class GlobalVariable {
     public static boolean save = false;
 
     public static int frameWidth, frameHeight;
+    public static String text;
 
     public static BufferedImage shot;
 

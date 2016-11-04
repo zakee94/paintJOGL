@@ -12,6 +12,7 @@ public class ToolBar extends JPanel implements ActionListener {
     private JToggleButton circleTool;
     private JToggleButton eraserTool;
     private JToggleButton saveTool;
+    private JTextField textField;
     private JLabel label1;
 
 
@@ -23,7 +24,10 @@ public class ToolBar extends JPanel implements ActionListener {
         circleTool = new JToggleButton("Circle Var");
         eraserTool = new JToggleButton("Eraser");
         saveTool = new JToggleButton("Save");
+        textField = new JTextField(15);
+
         label1 = new JLabel("By Default Pen(Green) has been selected!");
+        textField.setText(System.getProperty("user.dir"));
 
         penTool.addActionListener(this);
         lineTool.addActionListener(this);
@@ -32,6 +36,12 @@ public class ToolBar extends JPanel implements ActionListener {
         circleTool.addActionListener(this);
         eraserTool.addActionListener(this);
         saveTool.addActionListener(this);
+
+        textField.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                // Lets leave it blank
+            }
+        });
 
         setLayout(new FlowLayout(FlowLayout.CENTER));
 
@@ -42,6 +52,7 @@ public class ToolBar extends JPanel implements ActionListener {
         add(circleTool);
         add(eraserTool);
         add(saveTool);
+        add(textField);
         add(label1 );
 
 
@@ -88,11 +99,11 @@ public class ToolBar extends JPanel implements ActionListener {
         if(clicked == penTool) {
             GlobalVariable.penToolButton = true;
             GlobalVariable.eraser_flag = false;
-            label1.setText("");
+            //label1.setText("");
         }
         else if(clicked == lineTool) {
             GlobalVariable.lineToolButton = true;
-            label1.setText("");
+            //label1.setText("");
         }
         else if(clicked == circleTool) {
             GlobalVariable.circleToolButton = true;
@@ -113,7 +124,7 @@ public class ToolBar extends JPanel implements ActionListener {
         }
         else if(clicked == saveTool) {
             GlobalVariable.save = true;
+            GlobalVariable.text = textField.getText();
         }
-
     }
 }

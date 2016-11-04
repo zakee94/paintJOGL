@@ -58,7 +58,7 @@ public class Main {
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                     if (GlobalVariable.shot != null) {
                         try {
-                            ImageIO.write(GlobalVariable.shot, "png", new File("/home/zakee94/Java_Project/Codes/paintJOGL/screen.png"));
+                            ImageIO.write(GlobalVariable.shot, "png", new File(GlobalVariable.text + "/saved_image.png"));
                         } catch (IOException ex) {
                             // You know ... what to do here :P
                         }
