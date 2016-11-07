@@ -53,7 +53,7 @@ public class Main {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 if (JOptionPane.showConfirmDialog(frame1,
-                        "Save on exit ?", "Really Closing?",
+                        "Save on exit ?", "You are about to exit !",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                     if (GlobalVariable.shot != null) {
