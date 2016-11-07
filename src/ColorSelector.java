@@ -14,6 +14,12 @@ public class ColorSelector extends JPanel implements ActionListener {
     private JToggleButton yellowColor;
     private JToggleButton greyColor;
     private JToggleButton blackColor;
+    private JToggleButton orangeColor;
+    private JToggleButton cyanColor;
+    private JToggleButton violetColor;
+    private JToggleButton brownColor;
+
+    Color BROWN = new Color(139, 69, 19);
 
     public ColorSelector(){
 
@@ -24,6 +30,10 @@ public class ColorSelector extends JPanel implements ActionListener {
         yellowColor = new JToggleButton("Yellow");
         greyColor = new JToggleButton("Grey");
         blackColor = new JToggleButton("Black");
+        cyanColor = new JToggleButton("Cyan");
+        orangeColor = new JToggleButton("Orange");
+        violetColor = new JToggleButton("Violet");
+        brownColor = new JToggleButton("Brown");
 
         redColor.addActionListener(this);
         greenColor.addActionListener(this);
@@ -31,14 +41,22 @@ public class ColorSelector extends JPanel implements ActionListener {
         yellowColor.addActionListener(this);
         greyColor.addActionListener(this);
         blackColor.addActionListener(this);
+        cyanColor.addActionListener(this);
+        orangeColor.addActionListener(this);
+        violetColor.addActionListener(this);
+        brownColor.addActionListener(this);
 
-        setLayout(new GridLayout(6,0));
-        // add(Box.createVerticalGlue());
+        GridLayout colorLayout = new GridLayout(10, 0);
+        setLayout(colorLayout);
 
-        add(redColor);
-        add(greenColor);
+        add(violetColor);
+        add(cyanColor);
         add(blueColor);
+        add(greenColor);
         add(yellowColor);
+        add(orangeColor);
+        add(redColor);
+        add(brownColor);
         add(greyColor);
         add(blackColor);
 
@@ -50,6 +68,10 @@ public class ColorSelector extends JPanel implements ActionListener {
         group.add(yellowColor);
         group.add(greyColor);
         group.add(blackColor);
+        group.add(violetColor);
+        group.add(orangeColor);
+        group.add(cyanColor);
+        group.add(brownColor);
 
         redColor.setForeground(Color.RED);
         greenColor.setForeground(Color.GREEN);
@@ -57,6 +79,10 @@ public class ColorSelector extends JPanel implements ActionListener {
         yellowColor.setForeground(Color.YELLOW);
         greyColor.setForeground(Color.GRAY);
         blackColor.setForeground(Color.BLACK);
+        violetColor.setForeground(Color.MAGENTA);
+        cyanColor.setForeground(Color.CYAN);
+        orangeColor.setForeground(Color.ORANGE);
+        brownColor.setForeground(BROWN);
     }
 
 
@@ -81,6 +107,10 @@ public class ColorSelector extends JPanel implements ActionListener {
         yellowColor.setForeground(Color.YELLOW);
         greyColor.setForeground(Color.GRAY);
         blackColor.setForeground(Color.BLACK);
+        cyanColor.setForeground(Color.CYAN);
+        violetColor.setForeground(Color.MAGENTA);
+        orangeColor.setForeground(Color.ORANGE);
+        brownColor.setForeground(BROWN);
 
         redColor.setBackground(null);
         greenColor.setBackground(null);
@@ -88,6 +118,10 @@ public class ColorSelector extends JPanel implements ActionListener {
         yellowColor.setBackground(null);
         greyColor.setBackground(null);
         blackColor.setBackground(null);
+        cyanColor.setBackground(null);
+        orangeColor.setBackground(null);
+        violetColor.setBackground(null);
+        brownColor.setBackground(null);
 
         if(clicked == redColor) {
             GlobalVariable.r = 1;
@@ -124,6 +158,31 @@ public class ColorSelector extends JPanel implements ActionListener {
             blackColor.setBackground(Color.BLACK);
             blackColor.setForeground(Color.WHITE);
         }
-
+        else if(clicked == violetColor) {
+            GlobalVariable.r = 0.6f;
+            GlobalVariable.g = 0.196f;
+            GlobalVariable.b = 0.8f;
+            violetColor.setBackground(Color.MAGENTA);
+            violetColor.setForeground(Color.BLACK);
+        }
+        else if(clicked == orangeColor) {
+            GlobalVariable.r = 1f;
+            GlobalVariable.g = 0.647f;
+            orangeColor.setBackground(Color.ORANGE);
+            orangeColor.setForeground(Color.BLACK);
+        }
+        else if(clicked == cyanColor) {
+            GlobalVariable.g = 1;
+            GlobalVariable.b = 1;
+            cyanColor.setBackground(Color.CYAN);
+            cyanColor.setForeground(Color.BLACK);
+        }
+        else if(clicked == brownColor) {
+            GlobalVariable.r = 0.545f;
+            GlobalVariable.g = 0.271f;
+            GlobalVariable.b = 0.0745f;
+            brownColor.setBackground(BROWN);
+            brownColor.setForeground(Color.BLACK);
+        }
     }
 }
