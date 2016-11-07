@@ -4,6 +4,9 @@ import com.jogamp.opengl.GLEventListener;
 import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.awt.AWTGLReadBufferUtil;
 import java.awt.image.BufferedImage;
+
+import static com.jogamp.opengl.GL.GL_COLOR_BUFFER_BIT;
+import static com.jogamp.opengl.GL.GL_DEPTH_BUFFER_BIT;
 import static java.lang.Math.cos;
 import static java.lang.StrictMath.sin;
 import static java.lang.StrictMath.sqrt;
@@ -24,6 +27,7 @@ public class DrawingTools  implements GLEventListener {
         TriangleTool triangle1 = new TriangleTool();
         QuadTool quad1 = new QuadTool();
         fileSave save1 = new fileSave();
+        clearTool clear1 = new clearTool();
 
         if (GlobalVariable.penToolButton) {
             if (GlobalVariable.eraser_flag)
@@ -47,6 +51,9 @@ public class DrawingTools  implements GLEventListener {
         else if(GlobalVariable.save) {
             save1.screenshot(drawable);
         }
+        else if(GlobalVariable.clearToolButton) {
+            clear1.clearScreen(gl);
+        }
     }
 
     public void dispose(GLAutoDrawable arg0) {
@@ -56,6 +63,7 @@ public class DrawingTools  implements GLEventListener {
 
     public void init(GLAutoDrawable drawable) {
         final GL2 gl = drawable.getGL().getGL2();
+        gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glMatrixMode(GL2.GL_MODELVIEW);
@@ -63,18 +71,17 @@ public class DrawingTools  implements GLEventListener {
     }
 
     public void reshape(GLAutoDrawable drawable, int x, int y, int width, int height) {
-        System.out.println("If1");
         GL2 gl = drawable.getGL().getGL2();
-        final GLU glu = new GLU();
+
         gl.glViewport(0, 0, width, height);
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
+
         ML.ht = (double)height;
         ML.wd = (double)width;
+
         GlobalVariable.frameWidth = width;
         GlobalVariable.frameHeight = height;
-        System.out.println(width);
-        System.out.println(height);
     }
 }
 
@@ -236,5 +243,13 @@ class fileSave {
         BufferedImage screenshot = glReadBufferUtil.readPixelsToBufferedImage(glad.getGL(), true);
 
         GlobalVariable.shot = screenshot;
+    }
+}
+
+class clearTool {
+    public void clearScreen(GL2 gl) {
+        gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        gl.glLoadIdentity();
     }
 }

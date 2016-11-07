@@ -21,12 +21,14 @@ public class GlobalVariable {
     public static boolean triangleToolButton = false;
     public static boolean quadToolButton = false;
     public static boolean circleToolButton = false;
+    public static boolean clearToolButton = false;
     public static boolean save = false;
 
     public static int frameWidth, frameHeight;
     public static String text;
 
     public static BufferedImage shot;
+    public static MyFrame currentFrame;
 
     public static String fileExtension(String name) {
         String ext = null;

@@ -16,6 +16,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.awt.SystemColor.window;
+
 
 public class Main {
 
@@ -34,6 +36,7 @@ public class Main {
         DrawingTools mainInstance = new DrawingTools();
 
         final MyFrame frame1 = new MyFrame(myCanvas);
+        GlobalVariable.currentFrame = frame1;
 
         MyMouse mouse1 = new MyMouse(DrawingTools.ML);
         /**/
@@ -63,7 +66,6 @@ public class Main {
                             // You know ... what to do here :P
                         }
                     }
-                    System.exit(0);
                 }
             }
         });
