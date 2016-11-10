@@ -13,6 +13,7 @@ public class ToolBar extends JPanel implements ActionListener {
     private JToggleButton eraserTool;
     private JToggleButton clearTool;
     private JToggleButton saveTool;
+    private JToggleButton openTool;
     private JTextField textField;
     private JLabel label1;
 
@@ -26,6 +27,7 @@ public class ToolBar extends JPanel implements ActionListener {
         eraserTool = new JToggleButton("Eraser");
         clearTool = new JToggleButton("Clear");
         saveTool = new JToggleButton("Save");
+        openTool = new JToggleButton("Open");
         textField = new JTextField(25);
 
         label1 = new JLabel("|||");
@@ -39,6 +41,7 @@ public class ToolBar extends JPanel implements ActionListener {
         eraserTool.addActionListener(this);
         clearTool.addActionListener(this);
         saveTool.addActionListener(this);
+        openTool.addActionListener(this);
 
         textField.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -56,6 +59,7 @@ public class ToolBar extends JPanel implements ActionListener {
         add(eraserTool);
         add(clearTool);
         add(label1);
+        add(openTool);
         add(saveTool);
         add(textField);
 
@@ -68,6 +72,7 @@ public class ToolBar extends JPanel implements ActionListener {
         group.add(eraserTool);
         group.add(clearTool);
         group.add(saveTool);
+        group.add(openTool);
 
         penTool.setBackground(Color.LIGHT_GRAY);
         penTool.setForeground(Color.BLACK);
@@ -85,6 +90,8 @@ public class ToolBar extends JPanel implements ActionListener {
         clearTool.setForeground(Color.BLACK);
         saveTool.setBackground(Color.LIGHT_GRAY);
         saveTool.setForeground(Color.BLACK);
+        openTool.setBackground(Color.LIGHT_GRAY);
+        openTool.setForeground(Color.BLACK);
     }
 
 
@@ -101,6 +108,7 @@ public class ToolBar extends JPanel implements ActionListener {
         GlobalVariable.circleToolButton = false;
         GlobalVariable.eraser_flag = false;
         GlobalVariable.clearToolButton = false;
+        GlobalVariable.open = false;
         GlobalVariable.save = false;
 
         if(clicked == penTool) {
@@ -134,6 +142,15 @@ public class ToolBar extends JPanel implements ActionListener {
         else if(clicked == saveTool) {
             GlobalVariable.save = true;
             GlobalVariable.text = textField.getText();
+        }
+        else if(clicked == openTool) {
+            if (JOptionPane.showConfirmDialog(GlobalVariable.currentFrame,
+                    "Opening a new image will clear everything.\nSure to continue ?", "Open Image",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                GlobalVariable.open = true;
+                GlobalVariable.text = textField.getText();
+            }
         }
     }
 }

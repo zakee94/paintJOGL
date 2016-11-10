@@ -9,15 +9,8 @@ import com.jogamp.opengl.util.FPSAnimator;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static java.awt.SystemColor.window;
-
 
 public class Main {
 
@@ -56,12 +49,19 @@ public class Main {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 if (JOptionPane.showConfirmDialog(frame1,
-                        "Save on exit ?", "You are about to exit !",
+                        "Save on exit ?\n(save will only work if you have previously\nused save button before)",
+                        "You are about to exit !",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                     if (GlobalVariable.shot != null) {
                         try {
-                            ImageIO.write(GlobalVariable.shot, "png", new File(GlobalVariable.text + "/saved_image.png"));
+                            String extension = GlobalVariable.text.substring(GlobalVariable.text.length() - 3);
+                            if (extension.equals("png"))
+                                ImageIO.write(GlobalVariable.shot, "png", new File(GlobalVariable.text));
+                            else if (extension.equals("jpg"))
+                                ImageIO.write(GlobalVariable.shot, "jpg", new File(GlobalVariable.text));
+                            else
+                                System.out.println("Give proper name !");
                         } catch (IOException ex) {
                             // You know ... what to do here :P
                         }

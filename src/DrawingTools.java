@@ -1,12 +1,17 @@
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
-import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.awt.AWTGLReadBufferUtil;
-import java.awt.image.BufferedImage;
+import com.jogamp.opengl.util.texture.Texture;
+import com.jogamp.opengl.util.texture.TextureIO;
 
-import static com.jogamp.opengl.GL.GL_COLOR_BUFFER_BIT;
-import static com.jogamp.opengl.GL.GL_DEPTH_BUFFER_BIT;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import static com.jogamp.opengl.GL.*;
 import static java.lang.Math.cos;
 import static java.lang.StrictMath.sin;
 import static java.lang.StrictMath.sqrt;
@@ -19,14 +24,15 @@ public class DrawingTools  implements GLEventListener {
     static MouseLogger ML = new MouseLogger();
 
     public void display(GLAutoDrawable drawable) {
-
         GL2 gl = drawable.getGL().getGL2();
+
         PenTool pen1 = new PenTool(ML);
         LineTool line1 = new LineTool(ML);
         CircleTool circle1 = new CircleTool(ML);
         TriangleTool triangle1 = new TriangleTool();
         QuadTool quad1 = new QuadTool();
         fileSave save1 = new fileSave();
+        fileOpen open1 = new fileOpen();
         clearTool clear1 = new clearTool();
 
         if (GlobalVariable.penToolButton) {
@@ -50,6 +56,9 @@ public class DrawingTools  implements GLEventListener {
         }
         else if(GlobalVariable.save) {
             save1.screenshot(drawable);
+        }
+        else if(GlobalVariable.open) {
+            open1.openSesame(gl);
         }
         else if(GlobalVariable.clearToolButton) {
             clear1.clearScreen(gl);
@@ -95,17 +104,20 @@ class PenTool {
     public void pen(GL2 gl, boolean flag) {
 
         if (flag) {
-            gl.glPointSize(100f);
-            gl.glLineWidth(100f);
+            gl.glPointSize(999f);
+            gl.glLineWidth(999f);
             gl.glColor3f(1f, 1f, 1f);
-
         }
         else {
-            gl.glPointSize(4.0f);
-            gl.glLineWidth(4.0f);
+            gl.glPointSize(100.0f);
+            gl.glLineWidth(100.0f);
             gl.glColor3f(GlobalVariable.r, GlobalVariable.g, GlobalVariable.b);
+            //System.out.println(GlobalVariable.r+","+ GlobalVariable.g+","+ GlobalVariable.b);
         }
 
+        gl.glEnable( GL_LINE_SMOOTH );
+        //gl.glEnable(GL_BLEND);
+        //gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         gl.glBegin(GL2.GL_LINES);
         if (GlobalVariable.mouse_drag) {
             gl.glVertex2d(ML.getXOld(), ML.getYOld());
@@ -132,6 +144,9 @@ class LineTool {
         gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
 
         if (GlobalVariable.lineCreator) {
+            gl.glEnable( GL_LINE_SMOOTH );
+            //gl.glEnable(GL_BLEND);
+            //gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             gl.glBegin(GL2.GL_LINES);
             gl.glVertex2d(ML.lineX, ML.lineY);
             gl.glVertex2d(ML.lineXEnd, ML.lineYEnd);
@@ -153,6 +168,9 @@ class TriangleTool {
 
         gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
         if(GlobalVariable.polygonCreator == 2) {
+            gl.glEnable( GL_LINE_SMOOTH );
+            //gl.glEnable(GL_BLEND);
+            //gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             gl.glBegin(GL2.GL_TRIANGLES);
                 gl.glVertex2d(GlobalVariable.X_poly[0], GlobalVariable.Y_poly[0]);
                 gl.glVertex2d(GlobalVariable.X_poly[1], GlobalVariable.Y_poly[1]);
@@ -174,7 +192,12 @@ class TriangleTool {
 
          gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
         if(GlobalVariable.polygonCreator == 3) {
+            gl.glEnable( GL_LINE_SMOOTH );
+            //gl.glEnable(GL_BLEND);
+            //gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             gl.glBegin(GL2.GL_QUADS);
+                System.out.println(GlobalVariable.X_poly[0]);
+                System.out.println(GlobalVariable.Y_poly[0]);
                 gl.glVertex2d(GlobalVariable.X_poly[0], GlobalVariable.Y_poly[0]);
                 gl.glVertex2d(GlobalVariable.X_poly[1], GlobalVariable.Y_poly[1]);
                 gl.glVertex2d(GlobalVariable.X_poly[2], GlobalVariable.Y_poly[2]);
@@ -246,10 +269,76 @@ class fileSave {
     }
 }
 
+class fileOpen {
+    public void openSesame(GL2 gl) {
+        // This part dynamically resizes the window to adjust the given image
+        // according to its resolution while maintaining compatibiltiy with
+        // the device's resolution.
+        // Also works on multi monitor systems !!!
+        try {
+            BufferedImage bimg = ImageIO.read(new File(GlobalVariable.text));
+            int width = bimg.getWidth() + 74;
+            int height = bimg.getHeight() + 60;
+
+            GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+            int screenWidth = gd.getDisplayMode().getWidth();
+            int screenHeight = gd.getDisplayMode().getHeight();
+
+            if (width >= screenWidth)
+                width = screenWidth - 100;
+            if (height >= screenHeight)
+                height = screenHeight - 80;
+            if (width < 1280)
+                width = 1280;
+            if (height < 720)
+                height = 720;
+
+
+            GlobalVariable.currentFrame.setSize(width, height);
+        }
+        catch(IOException ex) {
+            // You know ... what to do here :P
+        }
+
+        // From here actual image opening starts
+        try {
+            Texture texture = TextureIO.newTexture(new File(GlobalVariable.text), true);
+            texture.setTexParameteri(gl, GL2.GL_TEXTURE_MIN_FILTER, GL2.GL_LINEAR);
+            texture.setTexParameteri(gl, GL2.GL_TEXTURE_MAG_FILTER, GL2.GL_LINEAR);
+            texture.enable(gl);
+            texture.bind(gl);
+
+            gl.glPointSize(4.0f);
+            gl.glLineWidth(4.0f);
+            gl.glColor3f(1, 1, 1);
+
+            gl.glBegin(GL2.GL_QUADS);
+            gl.glTexCoord2d(0, 1);
+            gl.glVertex2d(-1, 1);
+            gl.glTexCoord2d(1, 1);
+            gl.glVertex2d(1, 1);
+            gl.glTexCoord2d(1, 0);
+            gl.glVertex2d(1, -1);
+            gl.glTexCoord2d(0, 0);
+            gl.glVertex2d(-1, -1);
+            gl.glEnd();
+
+            texture.disable(gl);
+        }
+        catch(IOException ex) {
+            // You know ... what to do here :P
+        }
+    }
+}
+
 class clearTool {
     public void clearScreen(GL2 gl) {
         gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        gl.glMatrixMode(GL2.GL_PROJECTION);
+        gl.glMatrixMode(GL2.GL_MODELVIEW);
         gl.glLoadIdentity();
+
+        GlobalVariable.currentFrame.setSize(1280, 720);
     }
 }
