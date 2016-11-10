@@ -43,6 +43,7 @@ public class MyFrame extends JFrame {
         add(colorpick1, BorderLayout.WEST);
 
         setSize(1280,720);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
