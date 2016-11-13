@@ -1,3 +1,5 @@
+import com.jogamp.opengl.util.FPSAnimator;
+
 import java.awt.image.BufferedImage;
 
 /**
@@ -30,6 +32,7 @@ public class GlobalVariable {
 
     public static BufferedImage shot;
     public static MyFrame currentFrame;
+    public static FPSAnimator currentAnimator;
 
     public static String fileExtension(String name) {
         String ext = null;

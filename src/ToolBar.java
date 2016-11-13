@@ -111,6 +111,8 @@ public class ToolBar extends JPanel implements ActionListener {
         GlobalVariable.open = false;
         GlobalVariable.save = false;
 
+        GlobalVariable.currentAnimator.start();
+
         if(clicked == penTool) {
             GlobalVariable.penToolButton = true;
             GlobalVariable.eraser_flag = false;
@@ -140,8 +142,13 @@ public class ToolBar extends JPanel implements ActionListener {
             }
         }
         else if(clicked == saveTool) {
-            GlobalVariable.save = true;
-            GlobalVariable.text = textField.getText();
+            if (JOptionPane.showConfirmDialog(GlobalVariable.currentFrame,
+                    "Save this image ?", "Save Image",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                GlobalVariable.save = true;
+                GlobalVariable.text = textField.getText();
+            }
         }
         else if(clicked == openTool) {
             if (JOptionPane.showConfirmDialog(GlobalVariable.currentFrame,

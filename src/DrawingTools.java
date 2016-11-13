@@ -266,6 +266,20 @@ class fileSave {
         BufferedImage screenshot = glReadBufferUtil.readPixelsToBufferedImage(glad.getGL(), true);
 
         GlobalVariable.shot = screenshot;
+
+        try {
+            String extension = GlobalVariable.text.substring(GlobalVariable.text.length() - 3);
+            if (extension.equals("png"))
+                ImageIO.write(GlobalVariable.shot, "png", new File(GlobalVariable.text));
+            else if (extension.equals("jpg"))
+                ImageIO.write(GlobalVariable.shot, "jpg", new File(GlobalVariable.text));
+            else
+                System.out.println("Give proper name !");
+        } catch (IOException ex) {
+            // You know ... what to do here :P
+        }
+
+        GlobalVariable.currentAnimator.stop();
     }
 }
 
@@ -324,6 +338,7 @@ class fileOpen {
             gl.glEnd();
 
             texture.disable(gl);
+            GlobalVariable.currentAnimator.stop();
         }
         catch(IOException ex) {
             // You know ... what to do here :P

@@ -39,7 +39,6 @@ public class MenuBarClass {
         exitJMI.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, ActionEvent.CTRL_MASK));
 
         openFileJMI.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION);
                 // MyFrame.this -- So that it knows where its Parent is
@@ -51,7 +50,6 @@ public class MenuBarClass {
             }
         });
         saveFileJMI.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
                     System.out.println("hi");
@@ -74,7 +72,6 @@ public class MenuBarClass {
 
 
         exitJMI.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
@@ -102,7 +99,6 @@ public class MenuBarClass {
         group.add(greenJCB);
 
         redJCB.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 GlobalVariable.r = 0;
                 GlobalVariable.g = 0;
@@ -112,7 +108,6 @@ public class MenuBarClass {
             }
         });
         blueJCB.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 GlobalVariable.r = 0;
                 GlobalVariable.g = 0;
@@ -122,7 +117,6 @@ public class MenuBarClass {
             }
         });
         greenJCB.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 GlobalVariable.r = 0;
                 GlobalVariable.g = 0;
