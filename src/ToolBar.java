@@ -23,7 +23,7 @@ public class ToolBar extends JPanel implements ActionListener {
         lineTool = new JToggleButton("Lines");
         triangleTool = new JToggleButton("Triangles");
         quadTool = new JToggleButton("Quads");
-        circleTool = new JToggleButton("Circle Var");
+        circleTool = new JToggleButton("Text");
         eraserTool = new JToggleButton("Eraser");
         clearTool = new JToggleButton("Clear");
         saveTool = new JToggleButton("Save");
@@ -94,9 +94,6 @@ public class ToolBar extends JPanel implements ActionListener {
         openTool.setForeground(Color.BLACK);
     }
 
-
-
-
     //@Override
     public void actionPerformed(ActionEvent e) {
         JToggleButton clicked = (JToggleButton)e.getSource();
@@ -110,6 +107,7 @@ public class ToolBar extends JPanel implements ActionListener {
         GlobalVariable.clearToolButton = false;
         GlobalVariable.open = false;
         GlobalVariable.save = false;
+        GlobalVariable.mouse_pressed = false;
 
         GlobalVariable.currentAnimator.start();
 
@@ -118,10 +116,18 @@ public class ToolBar extends JPanel implements ActionListener {
             GlobalVariable.eraser_flag = false;
         }
         else if(clicked == lineTool) {
+            System.out.print("kk");
             GlobalVariable.lineToolButton = true;
         }
         else if(clicked == circleTool) {
-            GlobalVariable.circleToolButton = true;
+            textPanel textPanel1 = new textPanel();
+
+            int result = JOptionPane.showConfirmDialog(GlobalVariable.currentFrame, textPanel1,
+                    "Please Enter Values", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+            if (result == JOptionPane.OK_OPTION) {
+                GlobalVariable.circleToolButton = true;
+            }
         }
         else if(clicked == triangleTool) {
             GlobalVariable.triangleToolButton = true;

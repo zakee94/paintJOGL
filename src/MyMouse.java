@@ -8,7 +8,6 @@ import java.awt.event.MouseMotionListener;
 public class MyMouse implements  MouseListener, MouseMotionListener {
 
     private static int i;
-    //MouseLogger ML = new MouseLogger();
 
     private final MouseLogger ML;
     MyMouse(MouseLogger ML) {
@@ -46,6 +45,7 @@ public class MyMouse implements  MouseListener, MouseMotionListener {
 
         ML.lineX = ML.xSend;
         ML.lineY = ML.ySend;
+        GlobalVariable.mouse_pressed = true;
         GlobalVariable.lineCreator = false;
 
     }
