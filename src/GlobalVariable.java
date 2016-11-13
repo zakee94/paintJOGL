@@ -10,6 +10,7 @@ public class GlobalVariable {
     //public static boolean animator = false;
 
     public static boolean mouse_drag = false;
+    public static boolean mouse_pressed = false;
     public static boolean eraser_flag = false;
 
     public static float r = 0, g = 1, b = 0;
@@ -33,6 +34,9 @@ public class GlobalVariable {
     public static BufferedImage shot;
     public static MyFrame currentFrame;
     public static FPSAnimator currentAnimator;
+
+    public static String textFont, myText = "Your text here";
+    public static int fontType, textSize = 50;
 
     public static String fileExtension(String name) {
         String ext = null;

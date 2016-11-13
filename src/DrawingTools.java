@@ -1,7 +1,9 @@
 import com.jogamp.opengl.GL2;
 import com.jogamp.opengl.GLAutoDrawable;
 import com.jogamp.opengl.GLEventListener;
+import com.jogamp.opengl.glu.GLU;
 import com.jogamp.opengl.util.awt.AWTGLReadBufferUtil;
+import com.jogamp.opengl.util.awt.TextRenderer;
 import com.jogamp.opengl.util.texture.Texture;
 import com.jogamp.opengl.util.texture.TextureIO;
 
@@ -12,9 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 import static com.jogamp.opengl.GL.*;
-import static java.lang.Math.cos;
-import static java.lang.StrictMath.sin;
-import static java.lang.StrictMath.sqrt;
+import java.awt.font.*;
 
 /**
  * Created by aakash on 28/8/16.
@@ -22,9 +22,23 @@ import static java.lang.StrictMath.sqrt;
 public class DrawingTools  implements GLEventListener {
 
     static MouseLogger ML = new MouseLogger();
+    private GLU glu;
 
     public void display(GLAutoDrawable drawable) {
         GL2 gl = drawable.getGL().getGL2();
+
+        /*gl.glPushMatrix();
+
+        //float z = -5.0f;
+        gl.glTranslatef(1.0f, 0.0f, 0.0f);
+
+        gl.glBegin(GL2.GL_TRIANGLES);
+        gl.glVertex2f(0, 0.1f);
+        gl.glVertex2f(0.1f, -0.1f);
+        gl.glVertex2f(-0.1f, -0.1f);
+        gl.glEnd();
+
+        gl.glPopMatrix();*/
 
         PenTool pen1 = new PenTool(ML);
         LineTool line1 = new LineTool(ML);
@@ -44,8 +58,8 @@ public class DrawingTools  implements GLEventListener {
         else if (GlobalVariable.lineToolButton && !GlobalVariable.mouse_drag) {
             line1.line(gl);
         }
-        else if (GlobalVariable.circleToolButton && GlobalVariable.lineCreator) {
-            circle1.circle(gl);
+        else if (GlobalVariable.circleToolButton && GlobalVariable.mouse_pressed) {
+            circle1.circle(drawable, gl);
         }
 
         else if (GlobalVariable.triangleToolButton) {
@@ -104,13 +118,13 @@ class PenTool {
     public void pen(GL2 gl, boolean flag) {
 
         if (flag) {
-            gl.glPointSize(999f);
-            gl.glLineWidth(999f);
+            gl.glPointSize(10.0f);
+            gl.glLineWidth(10.0f);
             gl.glColor3f(1f, 1f, 1f);
         }
         else {
-            gl.glPointSize(100.0f);
-            gl.glLineWidth(100.0f);
+            gl.glPointSize(4.0f);
+            gl.glLineWidth(4.0f);
             gl.glColor3f(GlobalVariable.r, GlobalVariable.g, GlobalVariable.b);
             //System.out.println(GlobalVariable.r+","+ GlobalVariable.g+","+ GlobalVariable.b);
         }
@@ -213,50 +227,30 @@ class TriangleTool {
 class CircleTool {
     private MouseLogger ML;
 
-
     CircleTool(MouseLogger ML) {
         this.ML = ML;
     }
 
-    public void circle(GL2 gl) {
-        double radius = 0;
-        double theta, n, x, y, x1, y1, a, b;
-        n = 3.141 / 180;
-        a = (ML.lineX - ML.lineXEnd) * (ML.lineX - ML.lineXEnd);
-        b = (ML.lineY - ML.lineYEnd) * (ML.lineY - ML.lineYEnd);
-        radius = sqrt(a + b);
-        for (theta = 0; theta <= 45; theta++) {
-            x1 = radius * cos(theta * n);
-            y1 = radius * sin(theta * n);
-            x = ML.lineX + x1;
-            y = ML.lineY + y1;
-            gl.glColor3f(1, 0, 0);
-            gl.glBegin(GL2.GL_LINES);
-            gl.glVertex2d(y, -x);
-            gl.glVertex2d(-y, x);
-            gl.glEnd();
+    public void circle(GLAutoDrawable drawable, GL2 gl) {
+        TextRenderer renderer = new TextRenderer(new Font (GlobalVariable.textFont, GlobalVariable.fontType,
+                                                            GlobalVariable.textSize));
+        //System.out.println(GlobalVariable.textSize);
 
-            gl.glColor3f(0, 1, 0);
-            gl.glBegin(GL2.GL_LINES);
-            gl.glVertex2d(y, x);
-            gl.glVertex2d(-y, -x);
-            gl.glEnd();
+        int width = drawable.getSurfaceWidth();
+        int height = drawable.getSurfaceHeight();
+        double x = ML.getXCoordinate();
+        double y = ML.getYCoordinate();
 
-            gl.glColor3f(1, 0, 1);
-            gl.glBegin(GL2.GL_LINES);
-            gl.glVertex2d(x, -y);
-            gl.glVertex2d(-x, y);
-            gl.glEnd();
+        int fx = (int)((width/2) + (x*width/2));
+        int fy = (int)((height/2) + (y*height/2));
+        //System.out.println(fx + " , " + fy);
 
-            gl.glColor3f(0, 1, 1);
-            gl.glBegin(GL2.GL_LINES);
-            gl.glVertex2d(x, y);
-            gl.glVertex2d(-x, -y);
-            gl.glEnd();
-        }
-        gl.glFlush();
+
+        renderer.beginRendering(width, height);
+        renderer.setColor(GlobalVariable.r, GlobalVariable.g, GlobalVariable.b, 0.8f);
+        renderer.draw(GlobalVariable.myText, fx, fy);
+        renderer.endRendering();
     }
-
 }
 
 class fileSave {
