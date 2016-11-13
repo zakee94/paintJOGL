@@ -40,12 +40,13 @@ public class Main {
 
         //
         final FPSAnimator animator = new FPSAnimator(myCanvas, 30, true);
+        GlobalVariable.currentAnimator = animator;
 
         //
         animator.start();
 
         //
-        frame1.addWindowListener(new java.awt.event.WindowAdapter() {
+        /*frame1.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 if (JOptionPane.showConfirmDialog(frame1,
@@ -53,22 +54,10 @@ public class Main {
                         "You are about to exit !",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-                    if (GlobalVariable.shot != null) {
-                        try {
-                            String extension = GlobalVariable.text.substring(GlobalVariable.text.length() - 3);
-                            if (extension.equals("png"))
-                                ImageIO.write(GlobalVariable.shot, "png", new File(GlobalVariable.text));
-                            else if (extension.equals("jpg"))
-                                ImageIO.write(GlobalVariable.shot, "jpg", new File(GlobalVariable.text));
-                            else
-                                System.out.println("Give proper name !");
-                        } catch (IOException ex) {
-                            // You know ... what to do here :P
-                        }
-                    }
+
                 }
             }
-        });
+        });*/
     }
 }
 
