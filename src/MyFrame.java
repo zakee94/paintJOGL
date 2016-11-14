@@ -1,6 +1,7 @@
 import com.jogamp.opengl.awt.GLCanvas;
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 /**
  * Created by aakash on 28/8/16.
@@ -54,10 +55,13 @@ public class MyFrame extends JFrame {
     // Multi-threading for the menu-bar
     class MenuThreading extends Thread{
         JFileChooser fileChooser;
+
         MenuThreading(JFileChooser fileChooser){
             this.fileChooser = fileChooser;
         }
+
         public void run(){
+            fileChooser.setCurrentDirectory(new File(System.getProperty("user.home") + "/Pictures"));
             fileChooser.addChoosableFileFilter(new FileType());
             MenuBarClass MBC = new MenuBarClass(fileChooser);
             setJMenuBar(MBC.menuBar());
