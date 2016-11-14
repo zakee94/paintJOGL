@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,7 +17,8 @@ public class ToolBar extends JPanel implements ActionListener {
     private JToggleButton saveTool;
     private JToggleButton openTool;
     private JTextField textField;
-    private JLabel label1;
+    private JSeparator sep1, sep2, sep3;
+    private JSlider slider;
 
 
     public ToolBar(){
@@ -25,14 +28,34 @@ public class ToolBar extends JPanel implements ActionListener {
         quadTool = new JToggleButton("Quads");
         circleTool = new JToggleButton("Text");
         eraserTool = new JToggleButton("Eraser");
-        clearTool = new JToggleButton("Clear");
+        clearTool = new JToggleButton("ClearScr");
         saveTool = new JToggleButton("Save");
         openTool = new JToggleButton("Open");
         textField = new JTextField(25);
 
-        label1 = new JLabel("|||");
         textField.setText(System.getProperty("user.dir"));
         GlobalVariable.tField = textField;
+
+        sep1 = new JSeparator(JSeparator.VERTICAL);
+        sep1.setPreferredSize(new Dimension(5, 30));
+        sep2 = new JSeparator(JSeparator.VERTICAL);
+        sep2.setPreferredSize(new Dimension(5, 30));
+        sep3 = new JSeparator(JSeparator.VERTICAL);
+        sep3.setPreferredSize(new Dimension(5, 30));
+
+        slider = new JSlider(JSlider.HORIZONTAL, 0, 10, 7);
+
+        slider.setMajorTickSpacing(2);
+        slider.setMinorTickSpacing(1);
+        slider.setPaintLabels(true);
+        slider.setPaintTicks(true);
+        slider.addChangeListener(new ChangeListener(){
+            
+            public void stateChanged(ChangeEvent e) {
+                JSlider slideMark = (JSlider)e.getSource();
+                GlobalVariable.lineWidth = slideMark.getValue();
+            }
+        });
 
         // Select pen-tool as default
         penTool.setSelected(true);
@@ -61,11 +84,14 @@ public class ToolBar extends JPanel implements ActionListener {
         add(quadTool);
         add(circleTool);
         add(eraserTool);
-        add(clearTool);
-        add(label1);
+        add(sep1);
         add(openTool);
         add(saveTool);
         add(textField);
+        add(sep2);
+        add(clearTool);
+        add(sep3);
+        add(slider);
 
         ButtonGroup group = new ButtonGroup();
         group.add(penTool);
@@ -154,7 +180,7 @@ public class ToolBar extends JPanel implements ActionListener {
         else if(clicked == saveTool) {
             String extension = GlobalVariable.tField.getText().substring(GlobalVariable.tField.getText().length() - 3);
 
-            if (extension.equals("png") || extension.equals("png")) {
+            if (extension.equals("png") || extension.equals("jpg")) {
                 if (JOptionPane.showConfirmDialog(GlobalVariable.currentFrame,
                         "Save this image ?", "Save Image",
                         JOptionPane.YES_NO_OPTION,
@@ -173,7 +199,7 @@ public class ToolBar extends JPanel implements ActionListener {
         else if(clicked == openTool) {
             String extension = GlobalVariable.tField.getText().substring(GlobalVariable.tField.getText().length() - 3);
 
-            if (extension.equals("png") || extension.equals("png") || extension.equals("jpeg")) {
+            if (extension.equals("png") || extension.equals("jpg") || extension.equals("jpeg")) {
                 if (JOptionPane.showConfirmDialog(GlobalVariable.currentFrame,
                         "Opening a new image will clear everything.\nSure to continue ?", "Open Image",
                         JOptionPane.YES_NO_OPTION,

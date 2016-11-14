@@ -25,6 +25,7 @@ public class GlobalVariable {
     public static boolean clearToolButton = false;
     public static boolean save = false;
     public static boolean open = false;
+    public static float lineWidth = 5;
 
     public static int frameWidth, frameHeight;
     public static String text;

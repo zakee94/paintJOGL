@@ -21,7 +21,6 @@ import static com.jogamp.opengl.GL.*;
 public class DrawingTools  implements GLEventListener {
 
     static MouseLogger ML = new MouseLogger();
-    private GLU glu;
 
     public void display(GLAutoDrawable drawable) {
         GL2 gl = drawable.getGL().getGL2();
@@ -104,20 +103,15 @@ class PenTool {
     public void pen(GL2 gl, boolean flag) {
 
         if (flag) {
-            gl.glPointSize(10.0f);
-            gl.glLineWidth(10.0f);
+            gl.glLineWidth(GlobalVariable.lineWidth);
             gl.glColor3f(1f, 1f, 1f);
         }
         else {
-            gl.glPointSize(4.0f);
-            gl.glLineWidth(4.0f);
+            gl.glLineWidth(GlobalVariable.lineWidth);
             gl.glColor3f(GlobalVariable.r, GlobalVariable.g, GlobalVariable.b);
-            //System.out.println(GlobalVariable.r+","+ GlobalVariable.g+","+ GlobalVariable.b);
         }
 
         gl.glEnable( GL_LINE_SMOOTH );
-        //gl.glEnable(GL_BLEND);
-        //gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         gl.glBegin(GL2.GL_LINES);
         if (GlobalVariable.mouse_drag) {
             gl.glVertex2d(ML.getXOld(), ML.getYOld());
@@ -138,15 +132,12 @@ class LineTool {
 
     public void line(GL2 gl) {
 
-        gl.glPointSize(4.0f);
-        gl.glLineWidth(4.0f);
+        gl.glLineWidth(GlobalVariable.lineWidth);
 
         gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
 
         if (GlobalVariable.lineCreator) {
             gl.glEnable( GL_LINE_SMOOTH );
-            //gl.glEnable(GL_BLEND);
-            //gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             gl.glBegin(GL2.GL_LINES);
             gl.glVertex2d(ML.lineX, ML.lineY);
             gl.glVertex2d(ML.lineXEnd, ML.lineYEnd);
@@ -163,14 +154,11 @@ class TriangleTool {
 
     public void triangle(GL2 gl) {
 
-        gl.glPointSize(4.0f);
-        gl.glLineWidth(4.0f);
+        gl.glLineWidth(GlobalVariable.lineWidth);
 
         gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
         if(GlobalVariable.polygonCreator == 2) {
             gl.glEnable( GL_LINE_SMOOTH );
-            //gl.glEnable(GL_BLEND);
-            //gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             gl.glBegin(GL2.GL_TRIANGLES);
                 gl.glVertex2d(GlobalVariable.X_poly[0], GlobalVariable.Y_poly[0]);
                 gl.glVertex2d(GlobalVariable.X_poly[1], GlobalVariable.Y_poly[1]);
@@ -187,14 +175,11 @@ class TriangleTool {
 
     public void quad(GL2 gl) {
 
-         gl.glPointSize(4.0f);
-         gl.glLineWidth(4.0f);
+        gl.glLineWidth(GlobalVariable.lineWidth);
 
          gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
         if(GlobalVariable.polygonCreator == 3) {
             gl.glEnable( GL_LINE_SMOOTH );
-            //gl.glEnable(GL_BLEND);
-            //gl.glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             gl.glBegin(GL2.GL_QUADS);
                 System.out.println(GlobalVariable.X_poly[0]);
                 System.out.println(GlobalVariable.Y_poly[0]);
