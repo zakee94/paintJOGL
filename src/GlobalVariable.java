@@ -1,5 +1,5 @@
 import com.jogamp.opengl.util.FPSAnimator;
-
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 
 /**
@@ -7,13 +7,11 @@ import java.awt.image.BufferedImage;
  */
 public class GlobalVariable {
 
-    //public static boolean animator = false;
-
     public static boolean mouse_drag = false;
     public static boolean mouse_pressed = false;
     public static boolean eraser_flag = false;
 
-    public static float r = 0, g = 1, b = 0;
+    public static float r = 0, g = 0, b = 0;
     public static boolean lineCreator = false;
     public static int polygonCreator = -1;
     public static double X_poly[] = new double[4];
@@ -38,9 +36,18 @@ public class GlobalVariable {
     public static String textFont, myText = "Your text here";
     public static int fontType, textSize = 50;
 
+    public static JTextField tField;
+
     public static String fileExtension(String name) {
-        String ext = null;
+        int pointIndex = name.lastIndexOf(".");
+
+        if(pointIndex == -1){
+            return null;
+        }
+        if(pointIndex == name.length() - 1){
+            return null;
+        }
+        return name.substring(pointIndex + 1, name.length());
         // write a code that returns file name extension
-        return ext;
     }
 }

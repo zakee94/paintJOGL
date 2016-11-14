@@ -1,10 +1,9 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.IOException;
+
 /**
  * Created by LENOVO on 9/1/2016.
  */
@@ -18,8 +17,6 @@ public class MenuBarClass {
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("File");
         fileMenu.setMnemonic(KeyEvent.VK_F);
-        JMenu viewMenu = new JMenu("View");
-        viewMenu.setMnemonic(KeyEvent.VK_V);
         JMenu toolsMenu = new JMenu("Tools");
         toolsMenu.setMnemonic(KeyEvent.VK_T);
         JMenu helpMenu = new JMenu("Help");
@@ -40,33 +37,15 @@ public class MenuBarClass {
 
         openFileJMI.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION);
-                // MyFrame.this -- So that it knows where its Parent is
-                /**The APPROVE_OPTION Checks whether file is opened
-                 * Here We can Write the type and location to open File
-                 * We alse need a data model for saving the data*/
-
-                //Swing Visual Guid Components Will show us how to use the java file chooser
+                if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+                    File file = fileChooser.getSelectedFile();
+                    GlobalVariable.tField.setText(file.getAbsolutePath());
+                }
             }
         });
         saveFileJMI.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-                    System.out.println("hi");
-                    //GlobalVariable.save = true;
-
-                    try {
-                        ImageIO.write(GlobalVariable.shot, "png", new File("/home/zakee94/Java_Project/Codes/paintJOGL/screen.png"));
-                    } catch (IOException ex) {
-                        // You know ... what to do here :P
-                    }
-                }
-                // MyFrame.this -- So that it knows where its Parent is
-                /**The APPROVE_OPTION Checks whether file is opened
-                 * Here We can Write the type and location to open File
-                 * We alse need a data model for saving the data*/
-
-                //Swing Visual Guid Components Will show us how to use the java file chooser
+                if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) ;
             }
         });
 
@@ -76,12 +55,6 @@ public class MenuBarClass {
                 System.exit(0);
             }
         });
-
-        menuBar.add(viewMenu);
-        JMenuItem zoomInJMI = new JMenuItem("Zoom In");
-        viewMenu.add(zoomInJMI);
-        JMenuItem zoomOutJMI = new JMenuItem("Zoom Out");
-        viewMenu.add(zoomOutJMI);
 
         menuBar.add(toolsMenu);
         JMenu colorJMM = new JMenu("Color");

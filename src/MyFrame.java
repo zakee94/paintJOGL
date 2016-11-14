@@ -1,5 +1,4 @@
 import com.jogamp.opengl.awt.GLCanvas;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -29,9 +28,11 @@ public class MyFrame extends JFrame {
         }
 
         setLayout(new BorderLayout());
+
         /*Threading*/
         fileChooser = new JFileChooser();
         new Thread(new MenuThreading(fileChooser)).start();
+
         /*RThreading*/
         toolbar1 = new ToolBar();
         colorpick1 = new ColorSelector();
@@ -44,12 +45,13 @@ public class MyFrame extends JFrame {
 
         setSize(1280, 720);
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setVisible(true);
 
     } // Constructor Finishes Here
 
-/***************************************/
+
+    // Multi-threading for the menu-bar
     class MenuThreading extends Thread{
         JFileChooser fileChooser;
         MenuThreading(JFileChooser fileChooser){
@@ -61,6 +63,4 @@ public class MyFrame extends JFrame {
             setJMenuBar(MBC.menuBar());
         }
     }
-/*********************************************************************/
-
 }
