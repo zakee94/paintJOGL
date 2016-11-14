@@ -14,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 
 import static com.jogamp.opengl.GL.*;
-import java.awt.font.*;
 
 /**
  * Created by aakash on 28/8/16.
@@ -26,19 +25,6 @@ public class DrawingTools  implements GLEventListener {
 
     public void display(GLAutoDrawable drawable) {
         GL2 gl = drawable.getGL().getGL2();
-
-        /*gl.glPushMatrix();
-
-        //float z = -5.0f;
-        gl.glTranslatef(1.0f, 0.0f, 0.0f);
-
-        gl.glBegin(GL2.GL_TRIANGLES);
-        gl.glVertex2f(0, 0.1f);
-        gl.glVertex2f(0.1f, -0.1f);
-        gl.glVertex2f(-0.1f, -0.1f);
-        gl.glEnd();
-
-        gl.glPopMatrix();*/
 
         PenTool pen1 = new PenTool(ML);
         LineTool line1 = new LineTool(ML);

@@ -32,6 +32,10 @@ public class ToolBar extends JPanel implements ActionListener {
 
         label1 = new JLabel("|||");
         textField.setText(System.getProperty("user.dir"));
+        GlobalVariable.tField = textField;
+
+        // Select pen-tool as default
+        penTool.setSelected(true);
 
         penTool.addActionListener(this);
         lineTool.addActionListener(this);
@@ -148,21 +152,41 @@ public class ToolBar extends JPanel implements ActionListener {
             }
         }
         else if(clicked == saveTool) {
-            if (JOptionPane.showConfirmDialog(GlobalVariable.currentFrame,
-                    "Save this image ?", "Save Image",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-                GlobalVariable.save = true;
-                GlobalVariable.text = textField.getText();
+            String extension = GlobalVariable.tField.getText().substring(GlobalVariable.tField.getText().length() - 3);
+
+            if (extension.equals("png") || extension.equals("png")) {
+                if (JOptionPane.showConfirmDialog(GlobalVariable.currentFrame,
+                        "Save this image ?", "Save Image",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                    GlobalVariable.save = true;
+                    GlobalVariable.text = textField.getText();
+                }
+            }
+            else {
+                String message = "Please give a proper file-name !\n" +
+                        "Note that saving is only supported in '.png' & '.jpg' formats";
+
+                JOptionPane.showMessageDialog(GlobalVariable.currentFrame, message);
             }
         }
         else if(clicked == openTool) {
-            if (JOptionPane.showConfirmDialog(GlobalVariable.currentFrame,
-                    "Opening a new image will clear everything.\nSure to continue ?", "Open Image",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-                GlobalVariable.open = true;
-                GlobalVariable.text = textField.getText();
+            String extension = GlobalVariable.tField.getText().substring(GlobalVariable.tField.getText().length() - 3);
+
+            if (extension.equals("png") || extension.equals("png") || extension.equals("jpeg")) {
+                if (JOptionPane.showConfirmDialog(GlobalVariable.currentFrame,
+                        "Opening a new image will clear everything.\nSure to continue ?", "Open Image",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
+                    GlobalVariable.open = true;
+                    GlobalVariable.text = textField.getText();
+                }
+            }
+            else {
+                String message = "Please give a proper file-name !\n" +
+                        "Note that opening is only supported in '.png,' '.jpg' & '.jpeg' formats";
+
+                JOptionPane.showMessageDialog(GlobalVariable.currentFrame, message);
             }
         }
     }

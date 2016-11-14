@@ -6,12 +6,7 @@ import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.util.FPSAnimator;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 public class Main {
 
@@ -24,7 +19,6 @@ public class Main {
         final GLProfile profile = GLProfile.get(GLProfile.GL2);
         GLCapabilities capabilities = new GLCapabilities(profile);
 
-        /**/
         myCanvas = new GLCanvas(capabilities);
 
         DrawingTools mainInstance = new DrawingTools();
@@ -33,7 +27,6 @@ public class Main {
         GlobalVariable.currentFrame = frame1;
 
         MyMouse mouse1 = new MyMouse(DrawingTools.ML);
-        /**/
 
         myCanvas.addGLEventListener(mainInstance);
         myCanvas.addMouseListener(mouse1);
@@ -47,18 +40,20 @@ public class Main {
         animator.start();
 
         //
-        /*frame1.addWindowListener(new java.awt.event.WindowAdapter() {
+        frame1.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
                 if (JOptionPane.showConfirmDialog(frame1,
-                        "Save on exit ?\n(save will only work if you have previously\nused save button before)",
+                        "Really exit ?\nMake sure to save your work before exiting !",
                         "You are about to exit !",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
-
+                    animator.stop();
+                    frame1.dispose();
+                    System.exit(0);
                 }
             }
-        });*/
+        });
     }
 }
 

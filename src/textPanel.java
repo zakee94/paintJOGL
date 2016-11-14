@@ -76,7 +76,8 @@ public class textPanel extends JPanel implements ActionListener, FocusListener {
     }
 
     public void focusGained(FocusEvent e) {
-        // Do whatever you want
+        textField1.selectAll();
+        textField2.selectAll();
     }
 
     public void focusLost(FocusEvent e) {

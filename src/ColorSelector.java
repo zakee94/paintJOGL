@@ -23,7 +23,6 @@ public class ColorSelector extends JPanel implements ActionListener {
 
     public ColorSelector(){
 
-
         redColor = new JToggleButton("Red");
         greenColor = new JToggleButton("Green");
         blueColor = new JToggleButton("Blue");
@@ -34,6 +33,11 @@ public class ColorSelector extends JPanel implements ActionListener {
         orangeColor = new JToggleButton("Orange");
         violetColor = new JToggleButton("Violet");
         brownColor = new JToggleButton("Brown");
+
+        // Select black color as default
+        blackColor.setSelected(true);
+        blackColor.setBackground(Color.BLACK);
+        blackColor.setForeground(Color.WHITE);
 
         redColor.addActionListener(this);
         greenColor.addActionListener(this);
@@ -78,21 +82,11 @@ public class ColorSelector extends JPanel implements ActionListener {
         blueColor.setForeground(Color.BLUE);
         yellowColor.setForeground(Color.YELLOW);
         greyColor.setForeground(Color.GRAY);
-        blackColor.setForeground(Color.BLACK);
         violetColor.setForeground(Color.MAGENTA);
         cyanColor.setForeground(Color.CYAN);
         orangeColor.setForeground(Color.ORANGE);
         brownColor.setForeground(BROWN);
     }
-
-
-    private void setColor(int r, int g, int b) {
-
-        GlobalVariable.r = r;
-        GlobalVariable.g = g;
-        GlobalVariable.b = b;
-    }
-
 
     public void actionPerformed(ActionEvent e) {
         JToggleButton clicked = (JToggleButton)e.getSource();
