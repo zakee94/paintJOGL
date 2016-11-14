@@ -6,8 +6,6 @@ public class MouseLogger {
     double X, Y, xOld , yOld, xSend, ySend, lineX, lineY,lineXEnd, lineYEnd;
     double ht, wd;
 
-
-
     public void setXCoordinate(int i) {
         xOld = xSend;
         X = i;
@@ -49,5 +47,4 @@ public class MouseLogger {
         }
         return 0;
     }
-
 }
