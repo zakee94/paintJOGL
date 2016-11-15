@@ -22,7 +22,6 @@ public class MyMouse implements  MouseListener, MouseMotionListener {
             i = GlobalVariable.polygonCreator;
             GlobalVariable.X_poly[i] = ML.getXCoordinate();
             GlobalVariable.Y_poly[i] = ML.getYCoordinate();
-            System.out.println(GlobalVariable.polygonCreator);
             GlobalVariable.polygonCreator = GlobalVariable.polygonCreator % 3;
         }
         else if(GlobalVariable.quadToolButton){
@@ -30,7 +29,6 @@ public class MyMouse implements  MouseListener, MouseMotionListener {
             i = GlobalVariable.polygonCreator;
             GlobalVariable.X_poly[i] = ML.getXCoordinate();
             GlobalVariable.Y_poly[i] = ML.getYCoordinate();
-            System.out.println(GlobalVariable.polygonCreator);
             GlobalVariable.polygonCreator = GlobalVariable.polygonCreator % 4;
         }
     }
@@ -57,7 +55,7 @@ public class MyMouse implements  MouseListener, MouseMotionListener {
             ML.setYCoordinate(e.getY());
         }
 
-        if(GlobalVariable.lineToolButton || GlobalVariable.circleToolButton) {
+        if(GlobalVariable.lineToolButton || GlobalVariable.textToolButton || GlobalVariable.rectToolButton) {
             ML.lineXEnd = ML.getXCoordinate();
             ML.lineYEnd = ML.getYCoordinate();
             GlobalVariable.lineCreator = true;
