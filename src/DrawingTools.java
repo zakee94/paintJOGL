@@ -12,6 +12,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.Math;
 
 import static com.jogamp.opengl.GL.*;
 
@@ -27,12 +28,13 @@ public class DrawingTools  implements GLEventListener {
 
         PenTool pen1 = new PenTool(ML);
         LineTool line1 = new LineTool(ML);
-        CircleTool circle1 = new CircleTool(ML);
+        TextTool Text1 = new TextTool(ML);
         TriangleTool triangle1 = new TriangleTool();
         QuadTool quad1 = new QuadTool();
-        fileSave save1 = new fileSave();
-        fileOpen open1 = new fileOpen();
-        clearTool clear1 = new clearTool();
+        RectangleTool rect1 = new RectangleTool(ML);
+        FileSave save1 = new FileSave();
+        FileOpen open1 = new FileOpen();
+        ClearTool clear1 = new ClearTool();
 
         if (GlobalVariable.penToolButton) {
             if (GlobalVariable.eraser_flag)
@@ -40,11 +42,12 @@ public class DrawingTools  implements GLEventListener {
             else
                 pen1.pen(gl, false);
         }
-        else if (GlobalVariable.lineToolButton && !GlobalVariable.mouse_drag) {
-            line1.line(gl);
+        else if ((GlobalVariable.lineToolButton || GlobalVariable.rectToolButton) && !GlobalVariable.mouse_drag) {
+            if(GlobalVariable.lineToolButton){ line1.line(gl); }
+            else { rect1.rect(gl); };
         }
-        else if (GlobalVariable.circleToolButton && GlobalVariable.mouse_pressed) {
-            circle1.circle(drawable, gl);
+        else if (GlobalVariable.textToolButton && GlobalVariable.mouse_pressed) {
+            Text1.Text(drawable, gl);
         }
 
         else if (GlobalVariable.triangleToolButton) {
@@ -147,7 +150,6 @@ class LineTool {
 
         gl.glFlush();
     }
-
 }
 
 class TriangleTool {
@@ -181,8 +183,6 @@ class TriangleTool {
         if(GlobalVariable.polygonCreator == 3) {
             gl.glEnable( GL_LINE_SMOOTH );
             gl.glBegin(GL2.GL_QUADS);
-                System.out.println(GlobalVariable.X_poly[0]);
-                System.out.println(GlobalVariable.Y_poly[0]);
                 gl.glVertex2d(GlobalVariable.X_poly[0], GlobalVariable.Y_poly[0]);
                 gl.glVertex2d(GlobalVariable.X_poly[1], GlobalVariable.Y_poly[1]);
                 gl.glVertex2d(GlobalVariable.X_poly[2], GlobalVariable.Y_poly[2]);
@@ -195,14 +195,72 @@ class TriangleTool {
     }
  }
 
+class RectangleTool {
+
+    private MouseLogger ML;
+
+    RectangleTool(MouseLogger ML) {
+        this.ML = ML;
+    }
+
+    public void rect(GL2 gl) {
+
+        gl.glLineWidth(GlobalVariable.lineWidth);
+
+        gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
+
+        if (GlobalVariable.lineCreator) {
+            gl.glEnable( GL_LINE_SMOOTH );
+            gl.glBegin(GL2.GL_QUADS);
+                gl.glVertex2d(ML.lineX, ML.lineY);
+                gl.glVertex2d(ML.lineX, ML.lineYEnd);
+                gl.glVertex2d(ML.lineXEnd, ML.lineYEnd);
+                gl.glVertex2d(ML.lineXEnd, ML.lineY);
+            gl.glEnd();
+            GlobalVariable.lineCreator = false;
+        }
+
+        gl.glFlush();
+    }
+}
+/*
 class CircleTool {
+
     private MouseLogger ML;
 
     CircleTool(MouseLogger ML) {
         this.ML = ML;
     }
 
-    public void circle(GLAutoDrawable drawable, GL2 gl) {
+    public void circle(GL2 gl) {
+
+        gl.glLineWidth(GlobalVariable.lineWidth);
+
+        gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
+
+        if (GlobalVariable.lineCreator) {
+            gl.glEnable( GL_LINE_SMOOTH );
+            gl.glBegin(GL_POINTS);
+            for(int i=0;i<1000;++i)
+            {
+                gl.glVertex2d(Math.cos(2*3.14159*i/1000.0),Math.sin(2*3.14159*i/1000.0));
+            }
+            gl.glEnd();
+            GlobalVariable.lineCreator = false;
+        }
+
+        gl.glFlush();
+    }
+}
+*/
+class TextTool {
+    private MouseLogger ML;
+
+    TextTool(MouseLogger ML) {
+        this.ML = ML;
+    }
+
+    public void Text(GLAutoDrawable drawable, GL2 gl) {
         TextRenderer renderer = new TextRenderer(new Font (GlobalVariable.textFont, GlobalVariable.fontType,
                                                             GlobalVariable.textSize));
         //System.out.println(GlobalVariable.textSize);
@@ -224,7 +282,7 @@ class CircleTool {
     }
 }
 
-class fileSave {
+class FileSave {
     public void screenshot(GLAutoDrawable glad) {
 
         AWTGLReadBufferUtil glReadBufferUtil = new AWTGLReadBufferUtil(glad.getGLProfile(), false);
@@ -248,7 +306,7 @@ class fileSave {
     }
 }
 
-class fileOpen {
+class FileOpen {
     public void openSesame(GL2 gl) {
         // This part dynamically resizes the window to adjust the given image
         // according to its resolution while maintaining compatibiltiy with
@@ -311,7 +369,7 @@ class fileOpen {
     }
 }
 
-class clearTool {
+class ClearTool {
     public void clearScreen(GL2 gl) {
         gl.glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);

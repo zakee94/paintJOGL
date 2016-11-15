@@ -21,10 +21,12 @@ public class GlobalVariable {
     public static boolean lineToolButton = false;
     public static boolean triangleToolButton = false;
     public static boolean quadToolButton = false;
-    public static boolean circleToolButton = false;
+    public static boolean textToolButton = false;
     public static boolean clearToolButton = false;
+    public static boolean rectToolButton = false;
     public static boolean save = false;
     public static boolean open = false;
+
     public static float lineWidth = 5;
 
     public static int frameWidth, frameHeight;
