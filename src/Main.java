@@ -18,6 +18,7 @@ public class Main {
 
         final GLProfile profile = GLProfile.get(GLProfile.GL2);
         GLCapabilities capabilities = new GLCapabilities(profile);
+        capabilities.setDoubleBuffered(false);
 
         myCanvas = new GLCanvas(capabilities);
 
