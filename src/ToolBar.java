@@ -23,20 +23,42 @@ public class ToolBar extends JPanel implements ActionListener {
 
 
     public ToolBar(){
-        penTool = new JToggleButton("Pen");
-        lineTool = new JToggleButton("Line");
-        triangleTool = new JToggleButton("Triangle");
-        quadTool = new JToggleButton("Quad");
-        rectTool = new JToggleButton("Rect");
-        textTool = new JToggleButton("Text");
-        eraserTool = new JToggleButton("Eraser");
-        clearTool = new JToggleButton("ClearScr");
-        saveTool = new JToggleButton("Save");
-        openTool = new JToggleButton("Open");
+        penTool = new JToggleButton();
+        lineTool = new JToggleButton();
+        triangleTool = new JToggleButton();
+        quadTool = new JToggleButton();
+        rectTool = new JToggleButton();
+        textTool = new JToggleButton();
+        eraserTool = new JToggleButton();
+        clearTool = new JToggleButton();
+        saveTool = new JToggleButton();
+        openTool = new JToggleButton();
         textField = new JTextField(25);
 
         textField.setText(System.getProperty("user.dir"));
         GlobalVariable.tField = textField;
+
+        penTool.setIcon(new ImageIcon(getClass().getResource("/pen.png")));
+        penTool.setToolTipText("Pen");
+        eraserTool.setIcon(new ImageIcon(getClass().getResource("/eraser.png")));
+        eraserTool.setToolTipText("Eraser");
+        lineTool.setIcon(new ImageIcon(getClass().getResource("/line.png")));
+        lineTool.setToolTipText("Line");
+        rectTool.setIcon(new ImageIcon(getClass().getResource("/rect.png")));
+        rectTool.setToolTipText("Rectangle");
+        triangleTool.setIcon(new ImageIcon(getClass().getResource("/triangle.png")));
+        triangleTool.setToolTipText("Triangle");
+        quadTool.setIcon(new ImageIcon(getClass().getResource("/polygon.png")));
+        quadTool.setToolTipText("Polygon");
+        textTool.setIcon(new ImageIcon(getClass().getResource("/text.png")));
+        textTool.setToolTipText("Text");
+        clearTool.setIcon(new ImageIcon(getClass().getResource("/clear.png")));
+        clearTool.setToolTipText("Clear");
+        openTool.setIcon(new ImageIcon(getClass().getResource("/open.png")));
+        openTool.setToolTipText("Open");
+        saveTool.setIcon(new ImageIcon(getClass().getResource("/save.png")));
+        saveTool.setToolTipText("Save");
+
 
         sep1 = new JSeparator(JSeparator.VERTICAL);
         sep1.setPreferredSize(new Dimension(5, 30));
