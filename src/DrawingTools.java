@@ -347,7 +347,7 @@ class FileOpen {
 
             gl.glPointSize(4.0f);
             gl.glLineWidth(4.0f);
-            gl.glColor3f(1, 1, 1);
+            gl.glColor3d(GlobalVariable.filterR, GlobalVariable.filterG, GlobalVariable.filterB);
 
             gl.glBegin(GL2.GL_QUADS);
             gl.glTexCoord2d(0, 1);

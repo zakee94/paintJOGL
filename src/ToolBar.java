@@ -240,8 +240,15 @@ public class ToolBar extends JPanel implements ActionListener {
                         "Opening a new image will clear everything.\nSure to continue ?", "Open Image",
                         JOptionPane.YES_NO_OPTION,
                         JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-                    GlobalVariable.open = true;
-                    GlobalVariable.text = textField.getText();
+                    filterPanel filterPanel1 = new filterPanel();
+
+                    int result = JOptionPane.showConfirmDialog(GlobalVariable.currentFrame, filterPanel1,
+                            "Filter Choice", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+                    if (result == JOptionPane.OK_OPTION) {
+                        GlobalVariable.open = true;
+                        GlobalVariable.text = textField.getText();
+                    }
                 }
             }
             else {
