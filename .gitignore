@@ -4,3 +4,4 @@ out/
 *.jpg
 *.bmp
 *.jpeg
+!rsc/*.png
