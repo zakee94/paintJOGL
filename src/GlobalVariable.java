@@ -12,6 +12,8 @@ public class GlobalVariable {
     public static boolean eraser_flag = false;
 
     public static float r = 0, g = 0, b = 0;
+    public static double filterR = 1.0, filterG = 1.0, filterB = 1.0;
+
     public static boolean lineCreator = false;
     public static int polygonCreator = -1;
     public static double X_poly[] = new double[4];
