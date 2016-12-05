@@ -89,6 +89,10 @@ public class filterPanel extends JPanel implements ActionListener, FocusListener
                 setField(1.0, 0.0, 0.0);
                 setGlobal(1.0, 0.0, 0.0);
             }
+            else if (fColor.equals("Yellow")) {
+                setField(1.0, 1.0, 0.0);
+                setGlobal(1.0, 1.0, 0.0);
+            }
         }
     }
 
