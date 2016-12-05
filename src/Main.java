@@ -15,6 +15,9 @@ public class Main {
     public static void main(String[] args) {
 
         //System.setProperty("sun.awt.noerasebackground", "true");
+        
+        JPopupMenu.setDefaultLightWeightPopupEnabled(false);
+        ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
 
         final GLProfile profile = GLProfile.get(GLProfile.GL2);
         GLCapabilities capabilities = new GLCapabilities(profile);
