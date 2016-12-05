@@ -14,11 +14,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        System.setProperty("sun.awt.noerasebackground", "true");
+        //System.setProperty("sun.awt.noerasebackground", "true");
 
         final GLProfile profile = GLProfile.get(GLProfile.GL2);
         GLCapabilities capabilities = new GLCapabilities(profile);
-        capabilities.setDoubleBuffered(false);
+        //capabilities.setDoubleBuffered(false);
 
         myCanvas = new GLCanvas(capabilities);
 

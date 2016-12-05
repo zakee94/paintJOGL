@@ -201,7 +201,7 @@ class TriangleTool {
          gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
         if(GlobalVariable.polygonCreator == (GlobalVariable.polySides - 1)) {
             gl.glEnable( GL_LINE_SMOOTH );
-            if(!GlobalVariable.empty) { gl.glBegin(GL2.GL_POLYGON); }
+            if(!GlobalVariable.empty) { gl.glBegin(GL2.GL_TRIANGLE_FAN); }
             else { gl.glBegin(GL2.GL_LINE_LOOP); }
                 gl.glVertex2d(GlobalVariable.X_poly[0], GlobalVariable.Y_poly[0]);
                 gl.glVertex2d(GlobalVariable.X_poly[1], GlobalVariable.Y_poly[1]);
@@ -213,6 +213,7 @@ class TriangleTool {
                 gl.glVertex2d(GlobalVariable.X_poly[7], GlobalVariable.Y_poly[7]);
                 gl.glVertex2d(GlobalVariable.X_poly[8], GlobalVariable.Y_poly[8]);
                 gl.glVertex2d(GlobalVariable.X_poly[9], GlobalVariable.Y_poly[9]);
+                gl.glVertex2d(GlobalVariable.X_poly[0], GlobalVariable.Y_poly[0]);
             gl.glEnd();
             GlobalVariable.polygonCreator = -1;
         }
@@ -250,36 +251,7 @@ class RectangleTool {
         gl.glFlush();
     }
 }
-/*
-class CircleTool {
 
-    private MouseLogger ML;
-
-    CircleTool(MouseLogger ML) {
-        this.ML = ML;
-    }
-
-    public void circle(GL2 gl) {
-
-        gl.glLineWidth(GlobalVariable.lineWidth);
-
-        gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
-
-        if (GlobalVariable.lineCreator) {
-            gl.glEnable( GL_LINE_SMOOTH );
-            gl.glBegin(GL_POINTS);
-            for(int i=0;i<1000;++i)
-            {
-                gl.glVertex2d(Math.cos(2*3.14159*i/1000.0),Math.sin(2*3.14159*i/1000.0));
-            }
-            gl.glEnd();
-            GlobalVariable.lineCreator = false;
-        }
-
-        gl.glFlush();
-    }
-}
-*/
 class TextTool {
     private MouseLogger ML;
 

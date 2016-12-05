@@ -4,8 +4,6 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 
 
 public class ToolBar extends JPanel implements ActionListener {
@@ -23,9 +21,10 @@ public class ToolBar extends JPanel implements ActionListener {
     private JToggleButton clearTool;
     private JToggleButton saveTool;
     private JToggleButton openTool;
-    private JTextField textField;
     private JSeparator sep1, sep2, sep3, sep4, sep5;
     private JSlider slider;
+
+    JFileChooser  fileDialog = new JFileChooser();
 
 
     public ToolBar() {
@@ -108,10 +107,6 @@ public class ToolBar extends JPanel implements ActionListener {
         clearTool = new JToggleButton();
         saveTool = new JToggleButton();
         openTool = new JToggleButton();
-        textField = new JTextField(25);
-
-        textField.setText(System.getProperty("user.dir"));
-        GlobalVariable.tField = textField;
 
         sep1 = new JSeparator(JSeparator.VERTICAL);
         sep1.setPreferredSize(new Dimension(5, 30));
@@ -173,12 +168,6 @@ public class ToolBar extends JPanel implements ActionListener {
         saveTool.setIcon(new ImageIcon(getClass().getResource("/save.png")));
         saveTool.setToolTipText("Save");
 
-        textField.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                // Lets leave it blank
-            }
-        });
-
         setLayout(new FlowLayout(FlowLayout.CENTER));
 
 
@@ -216,7 +205,6 @@ public class ToolBar extends JPanel implements ActionListener {
         add(sep2);
         add(openTool);
         add(saveTool);
-        add(textField);
         add(sep3);
         add(clearTool);
         add(sep4);
@@ -288,7 +276,6 @@ public class ToolBar extends JPanel implements ActionListener {
                 add(sep5);
                 add(normal);
                 add(axial);
-                //http://stackoverflow.com/questions/1097366/java-swing-revalidate-vs-repaint
             }
             validate();
             repaint();
@@ -341,48 +328,63 @@ public class ToolBar extends JPanel implements ActionListener {
                     GlobalVariable.clearToolButton = true;
                 }
             } else if (clicked == saveTool) {
-                String extension = GlobalVariable.tField.getText().substring(GlobalVariable.tField.getText().length() - 3);
+                if (JOptionPane.showConfirmDialog(GlobalVariable.currentFrame,
+                        "Save this image ?", "Save Image",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
-                if (extension.equals("png") || extension.equals("jpg")) {
-                    if (JOptionPane.showConfirmDialog(GlobalVariable.currentFrame,
-                            "Save this image ?", "Save Image",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-                        GlobalVariable.save = true;
-                        GlobalVariable.text = textField.getText();
-                    }
-                } else {
-                    String message = "Please give a proper file-name !\n" +
-                            "Note that saving is only supported in '.png' & '.jpg' formats";
+                    int returnVal = fileDialog.showSaveDialog(GlobalVariable.currentFrame);
 
-                    JOptionPane.showMessageDialog(GlobalVariable.currentFrame, message);
-                }
-            } else if (clicked == openTool) {
-                String extension = GlobalVariable.tField.getText().substring(GlobalVariable.tField.getText().length() - 3);
+                    if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        java.io.File file = fileDialog.getSelectedFile();
+                        String path = file.getAbsolutePath();
 
-                if (extension.equals("png") || extension.equals("jpg") || extension.equals("jpeg")) {
-                    if (JOptionPane.showConfirmDialog(GlobalVariable.currentFrame,
-                            "Opening a new image will clear everything.\nSure to continue ?", "Open Image",
-                            JOptionPane.YES_NO_OPTION,
-                            JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
-                        filterPanel filterPanel1 = new filterPanel();
+                        String extension = path.substring(path.length() - 3);
+                        if (extension.equals("png") || extension.equals("jpg") || extension.equals("peg")) {
+                            GlobalVariable.save = true;
+                            GlobalVariable.text = path;
+                        }
+                        else {
+                            String message = "Please give a proper file-name !\n" +
+                                    "Note that saving is only supported in '.png' & '.jpg' formats";
 
-                        int result = JOptionPane.showConfirmDialog(GlobalVariable.currentFrame, filterPanel1,
-                                "Filter Choice", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
-                        if (result == JOptionPane.OK_OPTION) {
-                            GlobalVariable.open = true;
-                            GlobalVariable.text = textField.getText();
+                            JOptionPane.showMessageDialog(GlobalVariable.currentFrame, message);
                         }
                     }
-                } else {
-                    String message = "Please give a proper file-name !\n" +
-                            "Note that opening is only supported in '.png,' '.jpg' & '.jpeg' formats";
+                }
+            }
+            else if (clicked == openTool) {
+                if (JOptionPane.showConfirmDialog(GlobalVariable.currentFrame,
+                        "Opening a new image will clear everything.\nSure to continue ?", "Open Image",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION) {
 
-                    JOptionPane.showMessageDialog(GlobalVariable.currentFrame, message);
+                    int returnVal = fileDialog.showOpenDialog(GlobalVariable.currentFrame);
+
+                    if (returnVal == JFileChooser.APPROVE_OPTION) {
+                        java.io.File file = fileDialog.getSelectedFile();
+                        String path = file.getAbsolutePath();
+
+                        String extension = path.substring(path.length() - 3);
+                        if (extension.equals("png") || extension.equals("jpg") || extension.equals("peg")) {
+                            filterPanel filterPanel1 = new filterPanel();
+
+                            int result = JOptionPane.showConfirmDialog(GlobalVariable.currentFrame, filterPanel1,
+                                    "Filter Choice", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                            if (result == JOptionPane.OK_OPTION) {
+                                GlobalVariable.open = true;
+                                GlobalVariable.text = path;
+                            }
+                        }
+                        else {
+                            String message = "Please give a proper file-name !\n" +
+                                    "Note that opening is only supported in '.png,' '.jpg' & '.jpeg' formats";
+
+                            JOptionPane.showMessageDialog(GlobalVariable.currentFrame, message);
+                        }
+                    }
                 }
             }
         }
-
     }
 }
