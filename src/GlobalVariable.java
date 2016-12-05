@@ -19,10 +19,10 @@ public class GlobalVariable {
     public static double X_poly[] = new double[10];
     public static double Y_poly[] = new double[10];
 
-    public static boolean penToolButton = true;
+    public static boolean penToolButton = false;
     public static boolean lineToolButton = false;
     public static boolean triangleToolButton = false;
-    public static boolean polygonToolButton = false;
+    public static boolean polygonToolButton = true;
     public static boolean textToolButton = false;
     public static boolean clearToolButton = false;
     public static boolean rectToolButton = false;

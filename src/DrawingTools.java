@@ -201,7 +201,7 @@ class TriangleTool {
          gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
         if(GlobalVariable.polygonCreator == (GlobalVariable.polySides - 1)) {
             gl.glEnable( GL_LINE_SMOOTH );
-            if(!GlobalVariable.empty) { gl.glBegin(GL2.GL_TRIANGLE_FAN); }
+            if(!GlobalVariable.empty) { gl.glBegin(GL2.GL_POLYGON); }
             else { gl.glBegin(GL2.GL_LINE_LOOP); }
                 gl.glVertex2d(GlobalVariable.X_poly[0], GlobalVariable.Y_poly[0]);
                 gl.glVertex2d(GlobalVariable.X_poly[1], GlobalVariable.Y_poly[1]);
