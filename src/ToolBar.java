@@ -21,7 +21,7 @@ public class ToolBar extends JPanel implements ActionListener {
     private JToggleButton clearTool;
     private JToggleButton saveTool;
     private JToggleButton openTool;
-    private JSeparator sep1, sep2, sep3, sep4, sep5;
+    private JSeparator sep1, sep2, sep3, sep4, sep5, sep6;
     private JSlider slider;
 
     JFileChooser  fileDialog = new JFileChooser();
@@ -118,6 +118,8 @@ public class ToolBar extends JPanel implements ActionListener {
         sep4.setPreferredSize(new Dimension(5, 30));
         sep5 = new JSeparator(JSeparator.VERTICAL);
         sep5.setPreferredSize(new Dimension(5, 30));
+        sep6 = new JSeparator(JSeparator.VERTICAL);
+        sep6.setPreferredSize(new Dimension(5, 30));
 
         slider = new JSlider(JSlider.HORIZONTAL, 0, 10, 7);
 
@@ -132,8 +134,8 @@ public class ToolBar extends JPanel implements ActionListener {
             }
         });
 
-        // Select pen-tool as default
-        penTool.setSelected(true);
+        // Select polygon-tool as default
+        polygonTool.setSelected(true);
 
         penTool.addActionListener(this);
         lineTool.addActionListener(this);
@@ -209,6 +211,11 @@ public class ToolBar extends JPanel implements ActionListener {
         add(clearTool);
         add(sep4);
         add(slider);
+        add(sep5);
+        add(filled);
+        add(empty);
+        add(sep6);
+        add(combo2);
 
 
         penTool.setBackground(Color.LIGHT_GRAY);
@@ -256,6 +263,7 @@ public class ToolBar extends JPanel implements ActionListener {
         if ((clicked == penTool) || (clicked == eraserTool) || (clicked == lineTool)) {
             remove(filled);
             remove(sep5);
+            remove(sep6);
             remove(empty);
             remove(combo2);
             remove(normal);
@@ -280,13 +288,14 @@ public class ToolBar extends JPanel implements ActionListener {
             validate();
             repaint();
         } else if ((clicked == triangleTool) || (clicked == polygonTool) || (clicked == rectTool)) {
-            remove(slider);
             remove(normal);
             remove(axial);
+            remove(sep6);
             remove(combo2);
+            add(slider);
+            add(sep5);
             add(filled);
             add(empty);
-            add(sep5);
             if (clicked == triangleTool) {
                 GlobalVariable.triangleToolButton = true;
                 GlobalVariable.polySides = 3;
@@ -294,6 +303,7 @@ public class ToolBar extends JPanel implements ActionListener {
             } else if (clicked == polygonTool) {
                 GlobalVariable.polygonToolButton = true;
                 GlobalVariable.polygonCreator = -1;
+                add(sep6);
                 add(combo2);
             } else if (clicked == rectTool) {
                 GlobalVariable.rectToolButton = true;
@@ -309,6 +319,7 @@ public class ToolBar extends JPanel implements ActionListener {
             remove(filled);
             remove(empty);
             remove(sep5);
+            remove(sep6);
             validate();
             repaint();
             if (clicked == textTool) {
