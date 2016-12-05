@@ -77,6 +77,28 @@ public class ColorSelector extends JPanel implements ActionListener {
         group.add(cyanColor);
         group.add(brownColor);
 
+        redColor.setIcon(new ImageIcon(getClass().getResource("/red.png")));
+        redColor.setToolTipText("Open");
+        blackColor.setIcon(new ImageIcon(getClass().getResource("/black.png")));
+        blackColor.setToolTipText("Open");
+        blueColor.setIcon(new ImageIcon(getClass().getResource("/blue.png")));
+        blueColor.setToolTipText("Open");
+        violetColor.setIcon(new ImageIcon(getClass().getResource("/violet.png")));
+        violetColor.setToolTipText("Open");
+        greenColor.setIcon(new ImageIcon(getClass().getResource("/green.png")));
+        greenColor.setToolTipText("Open");
+        cyanColor.setIcon(new ImageIcon(getClass().getResource("/cyan.png")));
+        cyanColor.setToolTipText("Open");
+        greyColor.setIcon(new ImageIcon(getClass().getResource("/gray.png")));
+        greyColor.setToolTipText("Open");
+        yellowColor.setIcon(new ImageIcon(getClass().getResource("/yellow.png")));
+        yellowColor.setToolTipText("Open");
+        orangeColor.setIcon(new ImageIcon(getClass().getResource("/orange.png")));
+        orangeColor.setToolTipText("Open");
+        brownColor.setIcon(new ImageIcon(getClass().getResource("/brown.png")));
+        brownColor.setToolTipText("Open");
+
+
         redColor.setForeground(Color.RED);
         greenColor.setForeground(Color.GREEN);
         blueColor.setForeground(Color.BLUE);
