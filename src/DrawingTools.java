@@ -30,7 +30,7 @@ public class DrawingTools  implements GLEventListener {
         LineTool line1 = new LineTool(ML);
         TextTool Text1 = new TextTool(ML);
         TriangleTool triangle1 = new TriangleTool();
-        QuadTool quad1 = new QuadTool();
+        PolygonTool poly1 = new PolygonTool();
         RectangleTool rect1 = new RectangleTool(ML);
         FileSave save1 = new FileSave();
         FileOpen open1 = new FileOpen();
@@ -53,8 +53,8 @@ public class DrawingTools  implements GLEventListener {
         else if (GlobalVariable.triangleToolButton) {
             triangle1.triangle(gl);
         }
-        else if (GlobalVariable.quadToolButton) {
-            quad1.quad(gl);
+        else if (GlobalVariable.polygonToolButton) {
+            poly1.poly(gl);
         }
         else if(GlobalVariable.save) {
             save1.screenshot(drawable);
@@ -140,12 +140,30 @@ class LineTool {
         gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
 
         if (GlobalVariable.lineCreator) {
-            gl.glEnable( GL_LINE_SMOOTH );
-            gl.glBegin(GL2.GL_LINES);
-            gl.glVertex2d(ML.lineX, ML.lineY);
-            gl.glVertex2d(ML.lineXEnd, ML.lineYEnd);
-            gl.glEnd();
-            GlobalVariable.lineCreator = false;
+            GlobalVariable.slope = ( ML.lineY - ML.lineYEnd)/(ML.lineX - ML.lineXEnd);
+            System.out.println(GlobalVariable.slope+"  "+GlobalVariable.axial);
+
+            if(!GlobalVariable.axial) {
+                    gl.glEnable( GL_LINE_SMOOTH );
+                    gl.glBegin(GL2.GL_LINES);
+                    gl.glVertex2d(ML.lineX, ML.lineY);
+                    gl.glVertex2d(ML.lineXEnd, ML.lineYEnd);
+                    gl.glEnd();
+                    GlobalVariable.lineCreator = false;
+                }
+            else {
+                gl.glEnable(GL_LINE_SMOOTH);
+                gl.glBegin(GL2.GL_LINES);
+                if (GlobalVariable.slope < 1 || GlobalVariable.slope < -1) {
+                    gl.glVertex2d(ML.lineX, ML.lineY);
+                    gl.glVertex2d(ML.lineXEnd, ML.lineY);
+                } else {
+                    gl.glVertex2d(ML.lineX, ML.lineY);
+                    gl.glVertex2d(ML.lineX, ML.lineYEnd);
+                }
+                gl.glEnd();
+                GlobalVariable.lineCreator = false;
+            }
         }
 
         gl.glFlush();
@@ -161,7 +179,8 @@ class TriangleTool {
         gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
         if(GlobalVariable.polygonCreator == 2) {
             gl.glEnable( GL_LINE_SMOOTH );
-            gl.glBegin(GL2.GL_TRIANGLES);
+            if(!GlobalVariable.empty) { gl.glBegin(GL2.GL_TRIANGLES); }
+            else { gl.glBegin(GL2.GL_LINE_LOOP); }
                 gl.glVertex2d(GlobalVariable.X_poly[0], GlobalVariable.Y_poly[0]);
                 gl.glVertex2d(GlobalVariable.X_poly[1], GlobalVariable.Y_poly[1]);
                 gl.glVertex2d(GlobalVariable.X_poly[2], GlobalVariable.Y_poly[2]);
@@ -173,20 +192,27 @@ class TriangleTool {
     }
 }
 
- class QuadTool {
+ class PolygonTool {
 
-    public void quad(GL2 gl) {
+    public void poly(GL2 gl) {
 
         gl.glLineWidth(GlobalVariable.lineWidth);
 
          gl.glColor3f(GlobalVariable.r,GlobalVariable.g,GlobalVariable.b);
-        if(GlobalVariable.polygonCreator == 3) {
+        if(GlobalVariable.polygonCreator == (GlobalVariable.polySides - 1)) {
             gl.glEnable( GL_LINE_SMOOTH );
-            gl.glBegin(GL2.GL_QUADS);
+            if(!GlobalVariable.empty) { gl.glBegin(GL2.GL_POLYGON); }
+            else { gl.glBegin(GL2.GL_LINE_LOOP); }
                 gl.glVertex2d(GlobalVariable.X_poly[0], GlobalVariable.Y_poly[0]);
                 gl.glVertex2d(GlobalVariable.X_poly[1], GlobalVariable.Y_poly[1]);
                 gl.glVertex2d(GlobalVariable.X_poly[2], GlobalVariable.Y_poly[2]);
                 gl.glVertex2d(GlobalVariable.X_poly[3], GlobalVariable.Y_poly[3]);
+                gl.glVertex2d(GlobalVariable.X_poly[4], GlobalVariable.Y_poly[4]);
+                gl.glVertex2d(GlobalVariable.X_poly[5], GlobalVariable.Y_poly[5]);
+                gl.glVertex2d(GlobalVariable.X_poly[6], GlobalVariable.Y_poly[6]);
+                gl.glVertex2d(GlobalVariable.X_poly[7], GlobalVariable.Y_poly[7]);
+                gl.glVertex2d(GlobalVariable.X_poly[8], GlobalVariable.Y_poly[8]);
+                gl.glVertex2d(GlobalVariable.X_poly[9], GlobalVariable.Y_poly[9]);
             gl.glEnd();
             GlobalVariable.polygonCreator = -1;
         }
@@ -211,7 +237,8 @@ class RectangleTool {
 
         if (GlobalVariable.lineCreator) {
             gl.glEnable( GL_LINE_SMOOTH );
-            gl.glBegin(GL2.GL_QUADS);
+            if(!GlobalVariable.empty) { gl.glBegin(GL2.GL_QUADS); }
+            else { gl.glBegin(GL2.GL_LINE_LOOP); }
                 gl.glVertex2d(ML.lineX, ML.lineY);
                 gl.glVertex2d(ML.lineX, ML.lineYEnd);
                 gl.glVertex2d(ML.lineXEnd, ML.lineYEnd);
