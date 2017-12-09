@@ -1,7 +1,3 @@
-/**
- * Created by zakee94 on 24/8/16.
- */
-
 import com.jogamp.opengl.GLCapabilities;
 import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
@@ -15,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
 
         //System.setProperty("sun.awt.noerasebackground", "true");
-        
+
         JPopupMenu.setDefaultLightWeightPopupEnabled(false);
         ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
 

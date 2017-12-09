@@ -2,9 +2,6 @@ import com.jogamp.opengl.util.FPSAnimator;
 import javax.swing.*;
 import java.awt.image.BufferedImage;
 
-/**
- * Created by aakash on 26/8/16.
- */
 public class GlobalVariable {
 
     public static boolean mouse_drag = false;

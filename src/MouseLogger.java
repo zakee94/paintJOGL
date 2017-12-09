@@ -1,6 +1,3 @@
-/**
- * Created by zakee94 on 24/8/16.
- */
 public class MouseLogger {
 
     double X, Y, xOld , yOld, xSend, ySend, lineX, lineY,lineXEnd, lineYEnd;

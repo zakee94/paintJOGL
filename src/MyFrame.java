@@ -3,9 +3,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-/**
- * Created by aakash on 28/8/16.
- */
 public class MyFrame extends JFrame {
 
     private JFileChooser fileChooser;

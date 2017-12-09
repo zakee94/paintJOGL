@@ -3,9 +3,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.Arrays;
 
-/**
- * Created by aakash on 28/8/16.
- */
 public class MyMouse implements  MouseListener, MouseMotionListener {
 
     private static int i;
@@ -20,7 +17,7 @@ public class MyMouse implements  MouseListener, MouseMotionListener {
         GlobalVariable.lineCreator = false;
         if(GlobalVariable.triangleToolButton){
             GlobalVariable.polygonCreator++;
-            
+
             //
             i = GlobalVariable.polygonCreator;
             GlobalVariable.X_poly[i] = ML.getXCoordinate();
