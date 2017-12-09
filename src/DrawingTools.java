@@ -16,9 +16,6 @@ import java.lang.Math;
 
 import static com.jogamp.opengl.GL.*;
 
-/**
- * Created by aakash on 28/8/16.
- */
 public class DrawingTools  implements GLEventListener {
 
     static MouseLogger ML = new MouseLogger();

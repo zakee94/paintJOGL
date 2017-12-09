@@ -1,9 +1,6 @@
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
 
-/**
- * Created by LENOVO on 8/31/2016.
- */
 public class FileType extends FileFilter {
     @Override
     public boolean accept(File file) {

@@ -4,9 +4,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
-/**
- * Created by LENOVO on 9/1/2016.
- */
 public class MenuBarClass {
     private JFileChooser  fileChooser;
     MenuBarClass(JFileChooser fileChooser) {

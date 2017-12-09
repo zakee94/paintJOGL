@@ -3,9 +3,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- * Created by aakash on 28/8/16.
- */
 public class ColorSelector extends JPanel implements ActionListener {
 
     private JToggleButton redColor;

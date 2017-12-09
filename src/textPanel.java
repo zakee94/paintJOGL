@@ -5,9 +5,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-/**
- * Created by zakee94 on 13/11/16.
- */
 public class textPanel extends JPanel implements ActionListener, FocusListener {
     private JLabel label1;
     private JComboBox combo1;
